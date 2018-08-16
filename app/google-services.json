@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "937674536634",
+    "firebase_url": "https://balajiorderapp.firebaseio.com",
+    "project_id": "balajiorderapp",
+    "storage_bucket": "balajiorderapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:937674536634:android:51c60bdab58f6767",
+        "android_client_info": {
+          "package_name": "project.astix.com.balajiorder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "937674536634-2v30bpskq9tpusbnph2qiorpevutuksh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYD-QveRyNNL94TIpdK-vUaTJSrh3mYWw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
