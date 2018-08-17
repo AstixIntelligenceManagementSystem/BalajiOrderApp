@@ -288,6 +288,9 @@ GoogleApiClient.OnConnectionFailedListener,CategoryCommunicator
 	public String[] prductId;
 		LinkedHashMap<String, String> hmapctgry_details=new LinkedHashMap<String, String>();
 
+
+	String ctgryFirstName;
+	String ctgryFirstId;
 		HashMap<String, String> hmapProductToBeFree=new HashMap<String, String>();    //Not is use
 
 		ArrayList<HashMap<String, String>> arrLstHmapPrdct=new ArrayList<HashMap<String,String>>();
@@ -1768,6 +1771,11 @@ GoogleApiClient.OnConnectionFailedListener,CategoryCommunicator
 	            while(iterator.hasNext()) {
 	            	 Entry me2 = (Entry)iterator.next();
 	            	 categoryNames.add(me2.getKey().toString());
+					if(index==1)
+					{
+						ctgryFirstName=me2.getKey().toString();
+						ctgryFirstId=me2.getValue().toString();
+					}
 	                 index=index+1;
 	            }
 	    	}
@@ -1954,9 +1962,9 @@ GoogleApiClient.OnConnectionFailedListener,CategoryCommunicator
 			et_Stock.setTag("etStock"+"_"+productIdDynamic);
 
 			et_Stock.setOnFocusChangeListener(this);
-			et_Stock.setEnabled(true);
+			et_Stock.setEnabled(false);
 
-			/*if(flgOrderType==1)
+			if(flgOrderType==1)
 			{
 				et_Stock.setBackgroundResource(R.drawable.edit_text_diable_bg_transprent);
 				if(hmapFetchPDASavedData!=null && hmapFetchPDASavedData.containsKey(productIdDynamic))
@@ -1977,7 +1985,7 @@ GoogleApiClient.OnConnectionFailedListener,CategoryCommunicator
 			else
 			{
 				et_Stock.setEnabled(true);
-			}*/
+			}
 
 	           final EditText et_SampleQTY=(EditText) viewProduct.findViewById(R.id.et_SampleQTY);
 
@@ -2263,14 +2271,13 @@ GoogleApiClient.OnConnectionFailedListener,CategoryCommunicator
 
 
 
-	               et_Stock.setText(ProductValuesToFill.split(Pattern.quote("^"))[1]);
+	              // et_Stock.setText(ProductValuesToFill.split(Pattern.quote("^"))[1]);
 
-				  /* if(flgOrderType!=1)
+				  if(flgOrderType!=1)
 				   {
 					   et_Stock.setText(ProductValuesToFill.split(Pattern.quote("^"))[1]);
 					   // hmapProductIdStock.put(productIdDynamic,ProductValuesToFill.split(Pattern.quote("^"))[1]);
-				   }*/
-
+				   }
 	                et_OrderQty.setText(ProductValuesToFill.split(Pattern.quote("^"))[2]);
 
 	                tv_Orderval.setText(ProductValuesToFill.split(Pattern.quote("^"))[3]);
@@ -2320,25 +2327,24 @@ GoogleApiClient.OnConnectionFailedListener,CategoryCommunicator
 	                if(Integer.parseInt(ProductValuesToFill.split(Pattern.quote("^"))[1])==0)
 
 	                {
-						et_Stock.setText("");
+						/*et_Stock.setText("");
 
-						et_Stock.setHint(ProductOrderFilterSearch.this.getResources().getString(R.string.StockQty));
-						/*if(flgOrderType!=1)
+						et_Stock.setHint(ProductOrderFilterSearch.this.getResources().getString(R.string.StockQty));*/
+						if(flgOrderType!=1)
 						{
 							et_Stock.setText("");
 
 							et_Stock.setHint(ProductOrderFilterSearch.this.getResources().getString(R.string.StockQty));
-						}*/
+						}
 
 	                }
 
 
-	               /* if(flgOrderType!=1)
+	               if(flgOrderType!=1)
 				   {
 					   hmapProductIdStock.put(productIdDynamic, ProductValuesToFill.split(Pattern.quote("^"))[1]);
-				   }*/
+				   }
 
-				   hmapProductIdStock.put(productIdDynamic, ProductValuesToFill.split(Pattern.quote("^"))[1]);
 	                hmapPrdctOdrQty.put(productIdDynamic, ProductValuesToFill.split(Pattern.quote("^"))[2]);
 
 	                hmapProductIdOrdrVal.put(productIdDynamic, ProductValuesToFill.split(Pattern.quote("^"))[3]);
@@ -2587,12 +2593,12 @@ GoogleApiClient.OnConnectionFailedListener,CategoryCommunicator
 												et_Stock.setText("0");
 
 												hmapProductIdStock.put(""+getPIDTag, "0");
-												/*if(flgOrderType!=1)
+												if(flgOrderType!=1)
 												{
 													et_Stock.setText("0");
 
 													hmapProductIdStock.put(""+getPIDTag, "0");
-												}*/
+												}
 	                                        }
 
 
@@ -8530,9 +8536,9 @@ GoogleApiClient.OnConnectionFailedListener,CategoryCommunicator
 		   getProductData();
 
 		   getSchemeSlabDetails();
-			/*  dbengine.open();
+			 dbengine.open();
 			  hmapFetchPDASavedData=dbengine.fetchActualVisitData(storeID);
-			  dbengine.close();*/
+			  dbengine.close();
 
 			  hmapProductMinMax=dbengine.getProductMinMax();
 			  hmapSchmDscrptnAndBenfit=dbengine.getSchmDscrptnAndBenfit();
@@ -8591,9 +8597,19 @@ GoogleApiClient.OnConnectionFailedListener,CategoryCommunicator
 
 				    createProductPrepopulateDetail(CheckIfStoreExistInStoreProdcutPurchaseDetails);
 				    setInvoiceTableView();
-			   ed_search.setText("All");
-			   mProgressDialog.dismiss();
-			   searchProduct("All","");
+			   if((ctgryFirstName!=null) && (ctgryFirstId!=null) )
+			   {
+				   img_ctgry.setText(ctgryFirstName);
+				   mProgressDialog.dismiss();
+				   searchProduct(ctgryFirstName,ctgryFirstId);
+			   }
+			   else
+			   {
+				   img_ctgry.setText("All");
+				   mProgressDialog.dismiss();
+				   searchProduct("All","");
+			   }
+
 			   /*
 
 		     ArrayAdapter adapterCategory=new ArrayAdapter(ProductOrderFilterSearch.this, android.R.layout.simple_spinner_item,categoryNames);
@@ -8835,7 +8851,8 @@ GoogleApiClient.OnConnectionFailedListener,CategoryCommunicator
 				 if(flgOrderType==1)
 				 {
 
-					 Intent fireBackDetPg=new Intent(ProductOrderFilterSearch.this,LastVisitDetails.class);
+
+					/* Intent fireBackDetPg=new Intent(ProductOrderFilterSearch.this,LastVisitDetails.class);
 					 fireBackDetPg.putExtra("storeID", storeID);
 					 fireBackDetPg.putExtra("SN", SN);
 					 fireBackDetPg.putExtra("bck", 1);
@@ -8844,8 +8861,8 @@ GoogleApiClient.OnConnectionFailedListener,CategoryCommunicator
 					 fireBackDetPg.putExtra("pickerDate", pickerDate);
 					 //fireBackDetPg.putExtra("rID", routeID);
 					 startActivity(fireBackDetPg);
-					 finish();
-					/* Intent nxtP4 = new Intent(ProductOrderFilterSearch.this,ActualVisitStock.class);
+					 finish();*/
+					 Intent nxtP4 = new Intent(ProductOrderFilterSearch.this,ActualVisitStock.class);
 					 //Intent nxtP4 = new Intent(LastVisitDetails.this,ProductOrderFilterSearch_RecycleView.class);
 					 nxtP4.putExtra("storeID", storeID);
 					 nxtP4.putExtra("SN", SN);
@@ -8855,7 +8872,7 @@ GoogleApiClient.OnConnectionFailedListener,CategoryCommunicator
 					 nxtP4.putExtra("flgOrderType", flgOrderType);
 
 					 startActivity(nxtP4);
-					 finish();*/
+					 finish();
 
 				 }
 				 else
@@ -10541,7 +10558,8 @@ GoogleApiClient.OnConnectionFailedListener,CategoryCommunicator
 
 	public void alertForRetailerCreditLimit(final int btnClkd)
 	{
-		AlertDialog.Builder alertDialogSubmitConfirm = new AlertDialog.Builder(ProductOrderFilterSearch.this);
+		nextStepAfterRetailerCreditBal(btnClkd);
+		/*AlertDialog.Builder alertDialogSubmitConfirm = new AlertDialog.Builder(ProductOrderFilterSearch.this);
 		alertDialogSubmitConfirm.setTitle(ProductOrderFilterSearch.this.getResources().getString(R.string.genTermInformation));
 		alertDialogSubmitConfirm.setMessage(getText(R.string.credit_retailer_balance));
 		alertDialogSubmitConfirm.setCancelable(false);
@@ -10576,7 +10594,7 @@ GoogleApiClient.OnConnectionFailedListener,CategoryCommunicator
 		AlertDialog alert = alertDialogSubmitConfirm.create();
 
 		alert.show();
-
+*/
 
 	}
 

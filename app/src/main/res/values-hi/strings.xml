@@ -1,9 +1,9 @@
 <resources>
 
-   <string name="app_name">Balaji Order</string>
+   <!--<string name="app_name">Balaji Order</string>-->
     <!-- <string name="app_name">RBalaji Order Stagging</string>-->
     <!--<string name="app_name">Balaji Order Test</string>-->
-     <!--<string name="app_name">Balaji Order Dev</string>-->
+     <string name="app_name">Balaji Order Dev</string>
     <!--<string name="app_name">Balaji Order Test Release</string>-->
 
     <string name="Coverage_Area">कवरेज क्षेत्र</string>
@@ -98,6 +98,7 @@
     <string name="txtNoFrontCamera">सामने वाला कैमरा नहीं मिला।</string>
     <string name="txtSuccessfullySaved">सफलतापूर्वक SAVED कर लिया गया है</string>
     <string name="txtSELECTDOB">चुनें जन्म तिथि</string>
+ <string name="Gujarati">गुजराती</string>
     <string name="txtSelectMarriedDate">विवाह की तिथि चुनें</string>
     <string name="txtBloodGroupTitle">रक्त समूह</string>
     <string name="txtSubmitData">क्या आप डेटा जमा करना चाहते हैं?</string>

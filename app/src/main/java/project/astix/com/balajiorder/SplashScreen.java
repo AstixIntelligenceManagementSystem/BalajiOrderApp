@@ -3,6 +3,7 @@ package project.astix.com.balajiorder;
 
 //import com.newrelic.agent.android.NewRelic;
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -10,6 +11,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.graphics.drawable.ColorDrawable;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.ConnectivityManager;
@@ -29,6 +31,9 @@ import android.text.Html;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.KeyEvent;
+import android.view.View;
+import android.view.Window;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -131,10 +136,10 @@ public class SplashScreen extends BaseActivity
 
         //  imei="863661037439754";  // Training imei
 
-        imei="353202065143237";    // Development Imei
+       // imei="353202065143237";    // Development Imei
         //  imei="865404034791887";
        // imei="354010084603910";  // test release
-       // imei="354010084603910"; // test release
+        imei="354010084603910"; // test release
 
 
       //  imei="359632061313398";
@@ -215,7 +220,45 @@ public class SplashScreen extends BaseActivity
         SharedPreferences sharedPreferences=getSharedPreferences("LanguagePref", MODE_PRIVATE);
         SharedPreferences.Editor ed;
         if(!sharedPreferences.contains("Language")){
-            android.app.AlertDialog.Builder dialog=new android.app.AlertDialog.Builder(SplashScreen.this);
+
+            final Dialog dialogLanguage = new Dialog(SplashScreen.this);
+            dialogLanguage.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialogLanguage.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.WHITE));
+
+            dialogLanguage.setCancelable(false);
+            dialogLanguage.setContentView(R.layout.language_popup);
+
+            TextView textviewEnglish=(TextView) dialogLanguage.findViewById(R.id.textviewEnglish);
+            TextView textviewHindi=(TextView) dialogLanguage.findViewById(R.id.textviewHindi);
+            TextView textviewGujarati=(TextView) dialogLanguage.findViewById(R.id.textviewGujarati);
+            textviewEnglish.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialogLanguage.dismiss();
+                    setLanguage("en");
+                    onCreateFunctionalityAllcode();
+                }
+            });
+            textviewHindi.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialogLanguage.dismiss();
+                    setLanguage("hi");
+                    onCreateFunctionalityAllcode();
+                }
+            });
+            textviewGujarati.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialogLanguage.dismiss();
+                    setLanguage("gu");
+                    onCreateFunctionalityAllcode();
+                }
+            });
+
+
+            dialogLanguage.show();
+          /*  android.app.AlertDialog.Builder dialog=new android.app.AlertDialog.Builder(SplashScreen.this);
             dialog.setTitle("Language");
             dialog.setMessage("Please Select Language ");
             dialog.setPositiveButton("Hindi", new DialogInterface.OnClickListener()
@@ -253,7 +296,7 @@ public class SplashScreen extends BaseActivity
             });
 
             android.app.AlertDialog alert=dialog.create();
-            alert.show();
+            alert.show();*/
 
         }
         else

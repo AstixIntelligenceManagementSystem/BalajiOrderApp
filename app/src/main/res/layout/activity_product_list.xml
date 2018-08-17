@@ -91,7 +91,7 @@
             android:layout_alignParentRight="true"
             android:background="@drawable/spinner_bckground"
             android:layout_toRightOf="@+id/txt_ctgry"
-            android:text="All"
+            android:text=""
             android:gravity="center_vertical"
             android:layout_alignParentTop="true"
             />

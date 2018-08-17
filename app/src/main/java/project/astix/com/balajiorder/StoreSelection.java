@@ -3759,6 +3759,7 @@ public void DayEndWithoutalert()
 
 				 TextView textviewEnglish=(TextView) dialogLanguage.findViewById(R.id.textviewEnglish);
 				 TextView textviewHindi=(TextView) dialogLanguage.findViewById(R.id.textviewHindi);
+				 TextView textviewGujarati=(TextView) dialogLanguage.findViewById(R.id.textviewGujarati);
 
 				 textviewEnglish.setOnClickListener(new OnClickListener()
 				 {
@@ -3774,6 +3775,14 @@ public void DayEndWithoutalert()
 					 public void onClick(View v) {
 						 dialogLanguage.dismiss();
 						 setLanguage("hi");
+					 }
+				 });
+				 textviewGujarati.setOnClickListener(new OnClickListener()
+				 {
+					 @Override
+					 public void onClick(View v) {
+						 dialogLanguage.dismiss();
+						 setLanguage("gu");
 					 }
 				 });
 

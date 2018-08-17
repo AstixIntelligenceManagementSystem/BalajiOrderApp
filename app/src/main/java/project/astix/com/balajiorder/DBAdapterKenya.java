@@ -209,7 +209,7 @@ public class DBAdapterKenya
 	private static final String DATABASE_CREATE_TABLE_QSTOUTCHANNEL = "create table tblQuestIDForOutChannel(GrpQstId int null,QuestID int null,OptID text null,SectionCount int null);";
 
 	private static final String TABLE_QST_NAME = "tblQuestIDForName";
-	private static final String DATABASE_CREATE_TABLE_QST_NAME = "create table tblQuestIDForName(GrpQstId int null,QuestID int null);";
+	private static final String DATABASE_CREATE_TABLE_QST_NAME = "create table tblQuestIDForName(ID int null,GrpQstId int null,QuestID int null);";
 
 	private static final String TABLE_QuestionMstr = "tblQuestionMstr";
 	private static final String DATABASE_CREATE_TABLE_QUESTIONMstr = "create table tblQuestionMstr(QuestID int null,QuestCode int null,QuestDesc text null,QuestType int null,AnsControlType int null,AnsControlInputTypeID int null,AnsControlInputTypeMinLength int null,AnsControlInputTypeMaxLength int null,AnsMustRequiredFlg int null,QuestBundleFlg int null,ApplicationTypeID int null,Sequence int null,AnsHint text null,flgQuestIDForOutChannel int null,QuestDescHindi text null);";
@@ -1384,13 +1384,15 @@ private static final String DATABASE_TABLE_MAIN101 = "tblFirstOrderDetailsOnLast
 
 	}
 
-	public void savetblQuestIDForName(int grpQstId,int qstId)
+	public void savetblQuestIDForName(int ID,int grpQstId,int qstId)
 	{
   /*private static final String TABLE_QSTOUTCHANNEL = "tblQuestIDForOutChannel";
    private static final String TABLE_QST_NAME = "tblQuestIDForName";
     private static final String DATABASE_CREATE_TABLE_QSTOUTCHANNEL = "create table tblOptionMstr(GrpQstId int null,QuestID int null);";
     private static final String DATABASE_CREATE_TABLE_QST_NAME = "create table tblOptionMstr(GrpQstId int null,QuestID int null);";*/
 		ContentValues values=new ContentValues();
+
+        values.put("ID", ID);
 		values.put("GrpQstId", grpQstId);
 		values.put("QuestID", qstId);
 		db.insert(TABLE_QST_NAME, null, values);
@@ -25636,12 +25638,12 @@ public  LinkedHashMap<String,String> fngetAllOptionForQuestionID(int QuestID)
 		try {
 
 
-			Cursor cur=db.rawQuery("Select * from tblQuestIDForName", null);
+			Cursor cur=db.rawQuery("Select * from tblQuestIDForName where ID=2", null);
 			if(cur.getCount()>0)
 			{
 				if(cur.moveToFirst())
 				{
-					grpQstId_qstIdForName=cur.getString(0)+"^"+cur.getString(1);
+					grpQstId_qstIdForName=cur.getString(1)+"^"+cur.getString(2);
 				}
 			}
 		} catch (Exception e) {

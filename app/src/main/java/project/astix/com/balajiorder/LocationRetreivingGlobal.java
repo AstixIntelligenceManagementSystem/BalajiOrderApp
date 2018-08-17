@@ -64,8 +64,11 @@ public class LocationRetreivingGlobal implements LocationListener,GoogleApiClien
     public LocationManager locationManager;
     public Location location;
 
-    private final long startTime = 15000;
-    private final long interval = 200;
+    private final long startTime = 31000;
+    private final long interval = 1000;
+
+    int checkAccuracy=0;
+
     public CoundownClass countDownTimer;
     public boolean isGPSEnabled = false;
     public String FusedLocationLatitude="0";
@@ -103,12 +106,14 @@ public class LocationRetreivingGlobal implements LocationListener,GoogleApiClien
     Location mCurrentLocation;
     String mLastUpdateTime;
     Activity activity ;
-    public void locationRetrievingAndDistanceCalculating(Context context)
+    boolean fetchAdressFlag=true;
+    public void locationRetrievingAndDistanceCalculating(Context context,boolean fetchAdressFlag,int checkAccuracy)
     {
         activity = (Activity) context;
         locationManager=(LocationManager) context.getSystemService(LOCATION_SERVICE);
         this.context=context;
-
+        this.fetchAdressFlag=fetchAdressFlag;
+        this.checkAccuracy=checkAccuracy;
         appLocationService = new AppLocationService();
 
         pm = (PowerManager) context.getSystemService(POWER_SERVICE);
@@ -218,6 +223,15 @@ public class LocationRetreivingGlobal implements LocationListener,GoogleApiClien
 
         @Override
         public void onTick(long millisUntilFinished) {
+            if(FusedLocationAccuracy!=null){
+                if(Double.parseDouble(FusedLocationAccuracy)<checkAccuracy && (!FusedLocationAccuracy.equals("0"))){
+                    System.out.println("Shivam"+"ontickFInish "+millisUntilFinished+":"+ FusedLocationAccuracy);
+
+                    countDownTimer.onFinish();
+                    countDownTimer.cancel();
+
+                }
+            }
 
         }
 
@@ -242,7 +256,7 @@ public class LocationRetreivingGlobal implements LocationListener,GoogleApiClien
                     GpsLat=""+lattitude;
                     GpsLong=""+longitude;
                     GpsAccuracy=""+accuracy;
-                    if(isOnline())
+                    if(isOnline() && (fetchAdressFlag))
                     {
                         GpsAddress=getAddressOfProviders(GpsLat, GpsLong);
                     }
@@ -272,7 +286,7 @@ public class LocationRetreivingGlobal implements LocationListener,GoogleApiClien
                 NetwLat=""+lattitude1;
                 NetwLong=""+longitude1;
                 NetwAccuracy=""+accuracy1;
-                if(isOnline())
+                if(isOnline() && (fetchAdressFlag))
                 {
                     NetwAddress=getAddressOfProviders(NetwLat, NetwLong);
                 }
@@ -318,7 +332,7 @@ public class LocationRetreivingGlobal implements LocationListener,GoogleApiClien
                 FusedLocationLongitudeWithFirstAttempt=FusedLocationLongitude;
                 FusedLocationAccuracyWithFirstAttempt=FusedLocationAccuracy;
 
-                if(isOnline())
+                if(isOnline() && (fetchAdressFlag))
                 {
                     FusedAddress=getAddressOfProviders(FusedLat, FusedLong);
                 }
@@ -449,7 +463,7 @@ public class LocationRetreivingGlobal implements LocationListener,GoogleApiClien
             }
             else
             {
-                if(isOnline())
+                if(isOnline() && (fetchAdressFlag))
                 {
                     getAddressForDynamic(fnLati,fnLongi);
                 }

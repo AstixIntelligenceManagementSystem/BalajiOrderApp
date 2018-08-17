@@ -358,6 +358,8 @@
     <string name="txtDate">Date</string>
     <string name="txtMessage">Message</string>
     <string name="txtReport">Report</string>
+
+
     <string name="txtBack">Back</string>
 
     <!-- Notification Activity ends -->
@@ -680,6 +682,9 @@
     <string name="LanguageSelection">Please Select Language</string>
     <string name="Hindi">Hindi</string>
     <string name="English">English</string>
+    <string name="Gujarati">Gujarati</string>
+
+
     <string name="DayEnd">Day End</string>
     <string name="Dsrmessage">Please update your personal details before doing day end activity</string>
     <string name="RefreshData">Refresh Data</string>

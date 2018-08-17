@@ -568,7 +568,7 @@ public class DayStartActivity extends BaseActivity implements InterfaceClass,OnM
                     rg_yes_no.clearCheck();
                     ll_refresh.setVisibility(View.GONE);
                     LocationRetreivingGlobal llaaa=new LocationRetreivingGlobal();
-                    llaaa.locationRetrievingAndDistanceCalculating(DayStartActivity.this);
+                    llaaa.locationRetrievingAndDistanceCalculating(DayStartActivity.this,false,50);
                 }
 
 
@@ -702,7 +702,7 @@ public class DayStartActivity extends BaseActivity implements InterfaceClass,OnM
 
 
                     LocationRetreivingGlobal llaaa=new LocationRetreivingGlobal();
-                    llaaa.locationRetrievingAndDistanceCalculating(DayStartActivity.this);
+                    llaaa.locationRetrievingAndDistanceCalculating(DayStartActivity.this,false,50);
                 }
 
 

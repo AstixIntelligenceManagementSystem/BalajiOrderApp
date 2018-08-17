@@ -589,7 +589,9 @@ int flgCheckNewOldStore=0;
         rb_no=(RadioButton)findViewById(R.id.rb_no);
          btn_refresh= (Button) findViewById(R.id.btn_refresh);
         txt_rfrshCmnt= (TextView) findViewById(R.id.txt_rfrshCmnt);
+
         ll_refresh= (LinearLayout) findViewById(R.id.ll_refresh);
+        ll_refresh.setVisibility(View.GONE);
       //  rl_sectionQuest=(RelativeLayout) findViewById(R.id.rl_sectionQuest);
 
 
@@ -939,6 +941,13 @@ if(flgCheckNewOldStore==1)
 
     }
 }
+        if(sectionToShowHide==hmapSctnId_GrpId.size())
+        {
+            sectionToShowHide++;
+            img_next.setImageResource(R.drawable.done);
+            txt_Next.setText(getText(R.string.txtDone));
+
+        }
 
     }
     public void hideSoftKeyboard(View view){
@@ -1072,6 +1081,7 @@ if(flgCheckNewOldStore==1)
                         distID=recFragment.distBId;
                     }
                     beatSelected=recFragment.beatOptnSlctd;
+                    StoreName=recFragment.currentStoreName;
 
                 }
 

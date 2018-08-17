@@ -1382,7 +1382,7 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
 
                 TextView textviewEnglish=(TextView) dialogLanguage.findViewById(R.id.textviewEnglish);
                 TextView textviewHindi=(TextView) dialogLanguage.findViewById(R.id.textviewHindi);
-
+                TextView textviewGujarati=(TextView) dialogLanguage.findViewById(R.id.textviewGujarati);
                 textviewEnglish.setOnClickListener(new View.OnClickListener()
                 {
                     @Override
@@ -1399,6 +1399,15 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
                         setLanguage("hi");
                     }
                 });
+                textviewGujarati.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View v) {
+                        dialogLanguage.dismiss();
+                        setLanguage("gu");
+                    }
+                });
+
 
                 dialogLanguage.show();
 

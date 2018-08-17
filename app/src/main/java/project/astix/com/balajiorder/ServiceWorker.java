@@ -3438,9 +3438,9 @@ String RouteType="0";
 
 				Element line;
 
-				if(!element.getElementsByTagName("DBRNodeID").equals(null))
+				if(!element.getElementsByTagName("NodeId").equals(null))
 				{
-					NodeList DBRNodeIDNode = element.getElementsByTagName("DBRNodeID");
+					NodeList DBRNodeIDNode = element.getElementsByTagName("NodeId");
 					line = (Element) DBRNodeIDNode.item(0);
 					if(DBRNodeIDNode.getLength()>0)
 					{
@@ -3449,9 +3449,9 @@ String RouteType="0";
 				}
 
 
-				if(!element.getElementsByTagName("DistributorNodeType").equals(null))
+				if(!element.getElementsByTagName("NodeType").equals(null))
 				{
-					NodeList DistributorNodeTypeNode = element.getElementsByTagName("DistributorNodeType");
+					NodeList DistributorNodeTypeNode = element.getElementsByTagName("NodeType");
 					line = (Element) DistributorNodeTypeNode.item(0);
 					if(DistributorNodeTypeNode.getLength()>0)
 					{
@@ -3459,9 +3459,9 @@ String RouteType="0";
 					}
 				}
 
-				if(!element.getElementsByTagName("Distributor").equals(null))
+				if(!element.getElementsByTagName("Descr").equals(null))
 				{
-					NodeList DistributorNode = element.getElementsByTagName("Distributor");
+					NodeList DistributorNode = element.getElementsByTagName("Descr");
 					line = (Element) DistributorNode.item(0);
 					if(DistributorNode.getLength()>0)
 					{
@@ -3811,7 +3811,17 @@ String RouteType="0";
 			{
 				int grpQuestId=0;
 				int questId=0;
+				int ID=0;
 				Element element = (Element) tblQuestIDForName.item(i);
+				if(!element.getElementsByTagName("ID").equals(null))
+				{
+					NodeList IDNode = element.getElementsByTagName("ID");
+					Element     line = (Element) IDNode.item(0);
+					if(IDNode.getLength()>0)
+					{
+						ID=Integer.parseInt(xmlParser.getCharacterDataFromElement(line));
+					}
+				}
 				if(!element.getElementsByTagName("GrpQuestID").equals(null))
 				{
 					NodeList QuestIDForOutChannelNode = element.getElementsByTagName("GrpQuestID");
@@ -3831,7 +3841,7 @@ String RouteType="0";
 
 					}
 				}
-				dbengine.savetblQuestIDForName(grpQuestId, questId);
+				dbengine.savetblQuestIDForName(ID,grpQuestId, questId);
 			}
 			NodeList tblSPGetDistributorDetailsNode = doc.getElementsByTagName("tblGetPDAQuestMstr");
 			for (int i = 0; i < tblSPGetDistributorDetailsNode.getLength(); i++)

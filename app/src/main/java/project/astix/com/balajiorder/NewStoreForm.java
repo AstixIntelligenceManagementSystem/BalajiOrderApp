@@ -90,7 +90,7 @@ public class NewStoreForm extends Fragment  {
 	LinkedHashMap<String,String> hmapCityAgainstState;
 	String defaultCity="";
 
-	String beatNameTag="20^8^38";
+	String beatNameTag="11^8^11";
 	String beatOptnSlctd="0-0-0";
 	LinkedHashMap<String, String> hmapState_details=new LinkedHashMap<String, String>();
 	String previousSlctdState="Select";
@@ -650,7 +650,7 @@ public class NewStoreForm extends Fragment  {
 			}
 
 			ll_local_area.setVisibility(View.GONE);
-			ll_address_section.setVisibility(View.GONE);
+			ll_address_section.setVisibility(View.VISIBLE);
 		}
 		  //if(section==AddNewStore_DynamicSectionWise.hmapSctnId_GrpId.size())
 		    /*{

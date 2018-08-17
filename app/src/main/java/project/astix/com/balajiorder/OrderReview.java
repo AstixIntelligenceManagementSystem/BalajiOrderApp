@@ -91,7 +91,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class OrderReview extends BaseActivity implements OnItemSelectedListener, OnClickListener, OnFocusChangeListener, LocationListener,GoogleApiClient.ConnectionCallbacks,
-GoogleApiClient.OnConnectionFailedListener{
+GoogleApiClient.OnConnectionFailedListener,InterfaceClass{
 
 	TextView txt_Lststock;
 	String lastStockDate="";
@@ -3065,8 +3065,8 @@ GoogleApiClient.OnConnectionFailedListener{
 			et_LstStock.setText("");
 		}
 		et_Stock.setTag("etStock"+"_"+productIdDynamic);
-		et_Stock.setEnabled(true);
-	/*	if(flgOrderType==1)
+		et_Stock.setEnabled(false);
+		if(flgOrderType==1)
 		{
 			et_Stock.setBackgroundResource(R.drawable.edit_text_diable_bg_transprent);
 			if(hmapFetchPDASavedData!=null && hmapFetchPDASavedData.containsKey(productIdDynamic))
@@ -3087,7 +3087,7 @@ GoogleApiClient.OnConnectionFailedListener{
 		else
 		{
 			et_Stock.setEnabled(true);
-		}*/
+		}
 		et_Stock.setOnFocusChangeListener(this);
 
 
@@ -3453,11 +3453,11 @@ GoogleApiClient.OnConnectionFailedListener{
 		{
 
 
-			et_Stock.setText(ProductValuesToFill.split(Pattern.quote("^"))[1]);
-		/*	if(flgOrderType!=1)
+			//et_Stock.setText(ProductValuesToFill.split(Pattern.quote("^"))[1]);
+			if(flgOrderType!=1)
 			{
 				et_Stock.setText(ProductValuesToFill.split(Pattern.quote("^"))[1]);
-			}*/
+			}
 
 			et_OrderQty.setText(ProductValuesToFill.split(Pattern.quote("^"))[2]);
 
@@ -3509,24 +3509,24 @@ GoogleApiClient.OnConnectionFailedListener{
 
 			{
 
-				et_Stock.setText("");
+			/*	et_Stock.setText("");
 
-				et_Stock.setHint(OrderReview.this.getResources().getString(R.string.StockQty));
-				/*if(flgOrderType!=1)
+				et_Stock.setHint(OrderReview.this.getResources().getString(R.string.StockQty));*/
+				if(flgOrderType!=1)
 				{
 					et_Stock.setText("");
 
 					et_Stock.setHint(OrderReview.this.getResources().getString(R.string.StockQty));
-				}*/
+				}
 
 			}
 
 
-			hmapProductIdStock.put(productIdDynamic, ProductValuesToFill.split(Pattern.quote("^"))[1]);
-			/*if(flgOrderType!=1)
+			//hmapProductIdStock.put(productIdDynamic, ProductValuesToFill.split(Pattern.quote("^"))[1]);
+			if(flgOrderType!=1)
 			{
 				hmapProductIdStock.put(productIdDynamic, ProductValuesToFill.split(Pattern.quote("^"))[1]);
-			}*/
+			}
 
 			hmapPrdctOdrQty.put(productIdDynamic, ProductValuesToFill.split(Pattern.quote("^"))[2]);
 
@@ -3714,12 +3714,12 @@ GoogleApiClient.OnConnectionFailedListener{
 
 					hmapProductIdStock.put(""+getPIDTag, "0");
 
-				/*	if(flgOrderType!=1)
+					if(flgOrderType!=1)
 					{
 						et_Stock.setText("0");
 
 						hmapProductIdStock.put(""+getPIDTag, "0");
-					}*/
+					}
 
 				}
 
@@ -8901,7 +8901,7 @@ GoogleApiClient.OnConnectionFailedListener{
 							      
 									
 								
-								 appLocationService=new AppLocationService();
+								// appLocationService=new AppLocationService();
 								 
 								/* pm = (PowerManager) getSystemService(POWER_SERVICE);
 								 *//*  wl = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK
@@ -8910,13 +8910,13 @@ GoogleApiClient.OnConnectionFailedListener{
 							        wl.acquire();*/
 							       
 							        
-							        pDialog2STANDBY=ProgressDialog.show(OrderReview.this,getText(R.string.genTermPleaseWaitNew) ,getText(R.string.genTermRetrivingLocation), true);
+							       /* pDialog2STANDBY=ProgressDialog.show(OrderReview.this,getText(R.string.genTermPleaseWaitNew) ,getText(R.string.genTermRetrivingLocation), true);
 									   pDialog2STANDBY.setIndeterminate(true);
 										
 										pDialog2STANDBY.setCancelable(false);
-										pDialog2STANDBY.show();
+										pDialog2STANDBY.show();*/
 										
-								if(isGooglePlayServicesAvailable()) {
+								/*if(isGooglePlayServicesAvailable()) {
 									 createLocationRequest();
 									 
 									 mGoogleApiClient = new GoogleApiClient.Builder(OrderReview.this)
@@ -8932,8 +8932,9 @@ GoogleApiClient.OnConnectionFailedListener{
 								Location gpsLocation=appLocationService.getLocation(locationManager,LocationManager.NETWORK_PROVIDER,location);
 								 countDownTimer2 = new CoundownClass2(startTime, interval);
 						         countDownTimer2.start();
-
-								
+*/
+								 LocationRetreivingGlobal llaaa=new LocationRetreivingGlobal();
+								 llaaa.locationRetrievingAndDistanceCalculating(OrderReview.this,false,50);
 							   
 								 
 							 }
@@ -9378,6 +9379,53 @@ GoogleApiClient.OnConnectionFailedListener{
 		
 
 		 	
+	}
+
+	@Override
+	public void testFunctionOne(String fnLati, String fnLongi, String finalAccuracy, String fnAccurateProvider, String GpsLat, String GpsLong, String GpsAccuracy, String NetwLat, String NetwLong, String NetwAccuracy, String FusedLat, String FusedLong, String FusedAccuracy, String AllProvidersLocation, String GpsAddress, String NetwAddress, String FusedAddress, String FusedLocationLatitudeWithFirstAttempt, String FusedLocationLongitudeWithFirstAttempt, String FusedLocationAccuracyWithFirstAttempt, int flgLocationServicesOnOff, int flgGPSOnOff, int flgNetworkOnOff, int flgFusedOnOff, int flgInternetOnOffWhileLocationTracking, String address, String pincode, String city, String state) {
+
+		if(!checkLastFinalLoctionIsRepeated(String.valueOf(fnLati), String.valueOf(fnLongi), String.valueOf(fnAccuracy)))
+		{
+
+			fnCreateLastKnownFinalLocation(String.valueOf(fnLati), String.valueOf(fnLongi), String.valueOf(fnAccuracy));
+			UpdateLocationAndProductAllData();
+		}
+		else
+		{
+			countSubmitClicked++;
+			if(countSubmitClicked==1)
+			{
+				AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderReview.this);
+
+				// Setting Dialog Title
+				alertDialog.setTitle(getText(R.string.genTermNoDataConnection));
+				alertDialog.setIcon(R.drawable.error_info_ico);
+				alertDialog.setCancelable(false);
+				// Setting Dialog Message
+				alertDialog.setMessage(OrderReview.this.getResources().getString(R.string.AlertSameLoc));
+
+				// On pressing Settings button
+				alertDialog.setPositiveButton(OrderReview.this.getResources().getString(R.string.AlertDialogOkButton), new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						countSubmitClicked++;
+						Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+						startActivity(intent);
+					}
+				});
+
+				// Showing Alert Message
+				alertDialog.show();
+
+
+
+			}
+			else
+			{
+				UpdateLocationAndProductAllData();
+			}
+
+
+		}
 	}
 
 
@@ -9887,9 +9935,9 @@ GoogleApiClient.OnConnectionFailedListener{
 		   getProductData();
 		   
 		   getSchemeSlabDetails();
-			 /* dbengine.open();
+			  dbengine.open();
 			  hmapFetchPDASavedData=dbengine.fetchActualVisitData(storeID);
-			  dbengine.close();*/
+			  dbengine.close();
 			  hmapProductMinMax=dbengine.getProductMinMax();
 			  hmapSchmDscrptnAndBenfit=dbengine.getSchmDscrptnAndBenfit();
 			   outstandingvalue=dbengine.fnGetStoretblLastOutstanding(storeID);
@@ -10795,7 +10843,8 @@ GoogleApiClient.OnConnectionFailedListener{
 						UpdateLocationAndProductAllData();
 					}
 					else
-					{countSubmitClicked++;
+					{
+						countSubmitClicked++;
 						if(countSubmitClicked==1)
 						{
 							AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderReview.this);
@@ -11597,7 +11646,8 @@ GoogleApiClient.OnConnectionFailedListener{
 
 	public void alertForRetailerCreditLimit(final int btnClkd)
 	{
-		AlertDialog.Builder alertDialogSubmitConfirm = new AlertDialog.Builder(OrderReview.this);
+		nextStepAfterRetailerCreditBal(btnClkd);
+		/*AlertDialog.Builder alertDialogSubmitConfirm = new AlertDialog.Builder(OrderReview.this);
 		alertDialogSubmitConfirm.setTitle(getText(R.string.genTermNoDataConnection));
 		alertDialogSubmitConfirm.setMessage(getText(R.string.credit_retailer_balance));
 		alertDialogSubmitConfirm.setCancelable(false);
@@ -11632,7 +11682,7 @@ GoogleApiClient.OnConnectionFailedListener{
 		AlertDialog alert = alertDialogSubmitConfirm.create();
 
 		alert.show();
-
+*/
 
 	}
 

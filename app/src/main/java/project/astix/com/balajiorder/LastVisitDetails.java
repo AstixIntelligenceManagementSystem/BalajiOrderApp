@@ -1398,13 +1398,12 @@ final Button btn_Cancel=(Button) findViewById(R.id.btn_Cancel);
 					dbengine.UpdateStoreEndVisit(storeID,startTS);
 					dbengine.close();
 					//Intent nxtP4 = new Intent(LastVisitDetails.this,ActualVisitStock.class);
-					Intent nxtP4 = new Intent(LastVisitDetails.this,ProductOrderFilterSearch.class);
+					Intent nxtP4 = new Intent(LastVisitDetails.this,ActualVisitStock.class);
 					nxtP4.putExtra("storeID", storeID);
 					nxtP4.putExtra("SN", selStoreName);
 					nxtP4.putExtra("imei", imei);
 					nxtP4.putExtra("userdate", date);
 					nxtP4.putExtra("pickerDate", pickerDate);
-					nxtP4.putExtra("flgOrderType", 1);
 
 					startActivity(nxtP4);
 					finish();
