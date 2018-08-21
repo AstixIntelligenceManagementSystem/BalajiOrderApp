@@ -3840,7 +3840,7 @@ public class NewStoreForm extends Fragment  {
 				}
 			});
 		}
-		if(tagVal.split(Pattern.quote("^"))[0].toString().equals("20"))
+		if(tagVal.split(Pattern.quote("^"))[0].toString().equals("11"))
 		{
 			if(activityFrom.equals("StoreSelection"))
 			{

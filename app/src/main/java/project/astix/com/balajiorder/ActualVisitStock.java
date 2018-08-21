@@ -245,8 +245,9 @@ LinkedHashMap<String,String> hmapProductStockFromPurchaseTable=new LinkedHashMap
             hmapFetchPDASavedData.put(pair.getKey().toString(),pair.getValue().toString());
         }
 
-        img_ctgry.setText("All");
-        searchProduct("All","");
+        searchLoadDefaultProduct("All","");
+       // img_ctgry.setText("All");
+       // searchProduct("All","");
        /* if(hmapFetchPDASavedData!=null && hmapFetchPDASavedData.size()>0) {
 
 
@@ -442,6 +443,48 @@ LinkedHashMap<String,String> hmapProductStockFromPurchaseTable=new LinkedHashMap
             }
         }
 
+
+    }
+
+    public void searchLoadDefaultProduct(String filterSearchText,String ctgryId)
+    {
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        progressBarStatus = 0;
+
+
+        hmapFilterProductList.clear();
+
+
+
+
+        hmapFilterProductList=dbengine.fetchProductListLastvisitAndOrderBasis(storeID);
+        if(hmapFilterProductList!=null && hmapFilterProductList.isEmpty()){
+            hmapFilterProductList=dbengine.getFileredProductListMap(filterSearchText.trim(),StoreCurrentStoreType,ctgryId);
+
+        }
+        //System.out.println("hmapFilterProductListCount :-"+ hmapFilterProductList.size());
+        lLayout_main.removeAllViews();
+
+		/*if(hmapFilterProductList.size()<250)
+		{*/
+        if(hmapFilterProductList.size()>0)
+        {
+            inflatePrdctStockData();
+        }
+        else
+        {
+            allMessageAlert(ActualVisitStock.this.getResources().getString(R.string.AlertFilter));
+        }
+
+		/*}
+
+		else
+		{
+			allMessageAlert("Please put some extra filter on Search-Box to fetch related product");
+		}*/
+
+
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
     }
 }

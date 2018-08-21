@@ -139,7 +139,7 @@ public class SplashScreen extends BaseActivity
        // imei="353202065143237";    // Development Imei
         //  imei="865404034791887";
        // imei="354010084603910";  // test release
-        imei="354010084603910"; // test release
+      // imei="354010084603910"; // test release
 
 
       //  imei="359632061313398";
@@ -1069,7 +1069,7 @@ public class SplashScreen extends BaseActivity
                             {
                                 chkFlgForErrorToCloseApp=1;
                                 Toast.makeText(getApplicationContext(),getResources().getString(R.string.routeNoAvail),Toast.LENGTH_SHORT).show();
-
+                                break;
                             }
 
                         }
@@ -1077,7 +1077,15 @@ public class SplashScreen extends BaseActivity
                     if(mm==2)
                     {
                         getRouteservice = getRouteservice.getAvailbNotification(getApplicationContext(),imei,fDate);
+                        if(!newservice.director.toString().trim().equals("1"))
+                        {
+                            if(chkFlgForErrorToCloseApp==0)
+                            {
+                                chkFlgForErrorToCloseApp=1;
+                                break;
+                            }
 
+                        }
                     }
                     if(mm==3)
                     {
@@ -1089,6 +1097,7 @@ public class SplashScreen extends BaseActivity
                             if(chkFlgForErrorToCloseApp==0)
                             {
                                 chkFlgForErrorToCloseApp=1;
+                                break;
                             }
 
                         }
@@ -1096,7 +1105,15 @@ public class SplashScreen extends BaseActivity
                     if(mm==4)
                     {
                         getRouteservice = getRouteservice.getCallspToGetReasonMasterForNoVisit(getApplicationContext(), fDate, imei);
+                        if(!newservice.director.toString().trim().equals("1"))
+                        {
+                            if(chkFlgForErrorToCloseApp==0)
+                            {
+                                chkFlgForErrorToCloseApp=1;
+                                break;
+                            }
 
+                        }
                     }
 
                     if(mm==5)
@@ -1111,6 +1128,7 @@ public class SplashScreen extends BaseActivity
                                 if(chkFlgForErrorToCloseApp==0)
                                 {
                                     chkFlgForErrorToCloseApp=1;
+                                    break;
                                 }
 
                             }
@@ -1125,7 +1143,15 @@ public class SplashScreen extends BaseActivity
                     if(mm==6)
                     {
                         getRouteservice = getRouteservice.fnGetIncentiveData(getApplicationContext(), fDate, imei);
+                        if(!newservice.director.toString().trim().equals("1"))
+                        {
+                            if(chkFlgForErrorToCloseApp==0)
+                            {
+                                chkFlgForErrorToCloseApp=1;
+                                break;
+                            }
 
+                        }
                     }
                     if(mm==7)
                     {
@@ -1276,7 +1302,8 @@ public class SplashScreen extends BaseActivity
 
         if(flgPersonTodaysAtt==0)
         {
-            Intent intent=new Intent(this,DayStartActivity.class);
+            Intent intent=new Intent(this,DSR_Registration.class);
+            intent.putExtra("IntentFrom", "SPLASH");
             startActivity(intent);
             finish();
         }

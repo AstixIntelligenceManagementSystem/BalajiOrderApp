@@ -2398,7 +2398,7 @@ if(NoOfOutletID.length>0)
 		@Override
 		protected Void doInBackground(Void... params)
 		{
-			ServiceWorker newservice=new ServiceWorker();
+			/*ServiceWorker newservice=new ServiceWorker();
 
 			newservice=newservice.fnGetDistStockData(getApplicationContext(),CommonInfo.imei);
 			if(newservice.flagExecutedServiceSuccesfully!=38)
@@ -2406,7 +2406,7 @@ if(NoOfOutletID.length>0)
 				serviceException=true;
 
 			}
-
+*/
 			return null;
 		}
 
@@ -2490,10 +2490,13 @@ if(NoOfOutletID.length>0)
 				}
 				else if(whereTo.contentEquals("DayStart"))
 				{
-					Intent intent=new Intent(SyncMaster.this,DSR_Registration.class);
+					Intent submitStoreIntent = new Intent(SyncMaster.this, AllButtonActivity.class);
+					startActivity(submitStoreIntent);
+					finish();
+					/*Intent intent=new Intent(SyncMaster.this,DSR_Registration.class);
 					intent.putExtra("IntentFrom", "SPLASH");
 					startActivity(intent);
-					finish();;
+					finish();;*/
 
 				}
 				else

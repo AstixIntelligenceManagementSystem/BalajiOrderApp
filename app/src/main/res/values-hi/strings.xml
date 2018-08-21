@@ -16,7 +16,7 @@
     <string name="working">काम कर रहे हो</string>
     <string name="not_working">काम नहीं कर रहे हो</string>
     <string name="selectDistributorProceeds">कृपया आगे जाने के लिये वितरक चुनें</string>
-
+   <string name="laststock">अंतिम स्टैक एनए</string>
     <string name="select_attendance_scope">उपस्थिति रिपोर्ट देखें</string>
     <string name="select_attendance_report">डीएसआर उपस्थिति रिपोर्ट</string>
     <!--Day Start message start-->
@@ -640,13 +640,13 @@
     <string name="VersionNo">संस्करण संख्या-V</string>
     <string name="CheckTodayOrder">आज का ऑर्डर देखें</string>
 
-
+    <string name="ErrorUploadingData">डेटा अपलोड करते समय त्रुटि</string>
 
     <!-- Selection header ends -->
 
 
-
-
+   <string name="SubmittingPndngDataMsg">लंबित डेटा अपलोड कर रहा है ...</string>
+   <string name="UploadPndngData">लंबित डेटा अपलोड करें</string>
     <string name="genlocaldataMsg">डेटा स्थानीय रूप से फोन मे सहेजा गया है, इंटरनेट एक्सेस करने के बाद सर्वर पर भेज दिया जायेगा</string>
     <string name="reason_prompt">Please Select Reason</string>
     <string name="category_prompt">Please Select Category</string>

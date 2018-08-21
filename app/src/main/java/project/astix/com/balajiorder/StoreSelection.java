@@ -1,9 +1,19 @@
 package project.astix.com.balajiorder;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -19,12 +29,18 @@ import java.util.StringTokenizer;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.regex.Pattern;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
+import android.media.MediaScannerConnection;
+import android.net.Uri;
 import android.os.Build;
 import android.text.TextUtils;
+import android.text.format.DateUtils;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import com.astix.Common.CommonInfo;
@@ -93,12 +109,26 @@ import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class StoreSelection extends BaseActivity implements com.google.android.gms.location.LocationListener,GoogleApiClient.ConnectionCallbacks,GoogleApiClient.OnConnectionFailedListener
 {
+	public String[] xmlForWeb = new String[1];
+	int serverResponseCode = 0;
+	public int syncFLAG = 0;
+	InputStream inputStream;
 	public boolean addStoreBtnClick=false;
 	public String currSysDate;
 	public int chkFlgForErrorToCloseApp=0;
@@ -1525,6 +1555,13 @@ public void DayEndWithoutalert()
 				
 				if(mm==8)
 				{
+					newservice = newservice.getProductListLastVisitStockOrOrderMstr(getApplicationContext(), fDate, imei, rID);
+					if(newservice.flagExecutedServiceSuccesfully!=1)
+					{
+						serviceException=true;
+						break;
+					}
+
 						/*newservice = newservice.getStoreProductClassificationTypeListMstr(getApplicationContext(), fDate, imei);
 						if(newservice.flagExecutedServiceSuccesfully!=39)
 						{
@@ -3613,7 +3650,37 @@ public void DayEndWithoutalert()
 	        parms.dimAmount = (float) 0.5;
 
 		 final Button butn_Census_report = (Button) dialog.findViewById(R.id.butn_Census_report);
+			Button  butn_UpldPndngDta = (Button) dialog.findViewById(R.id.butn_UpldPndngDta);
+		 butn_UpldPndngDta.setOnClickListener(new OnClickListener() {
+			 @Override
+			 public void onClick(View v) {
+				 if(isOnline())
+				 {
+						dialog.dismiss();
+					 if((dbengine.fnCheckForPendingImages("tableImage",5)==1) || (dbengine.fnCheckForPendingImages("tblStoreProductPhotoDetail",5)==1) || (dbengine.fnCheckForPendingImages("tblStoreClosedPhotoDetail",5)==1))
+					 {
+						 ImageSync task = new ImageSync(StoreSelection.this);
+						 task.execute();
 
+					 }
+					 else if(dbengine.fnCheckForPendingXMLFilesInTable()==1)
+					 {
+						 new FullSyncDataNow(StoreSelection.this).execute();
+
+					 }
+					 else
+					 {
+						 showSyncSuccess(getString(R.string.AlertDialogHeaderMsg),getString(R.string.NoPendingDataMsg));
+						// showAlertSingleButtonError(getResources().getString(R.string.NoPendingDataMsg));
+					 }
+
+				 }
+				 else
+				 {
+					 showAlertSingleButtonError(getResources().getString(R.string.NoDataConnectionFullMsg));
+				 }
+			 }
+		 });
 		 butn_Census_report.setOnClickListener(new View.OnClickListener() {
 			 @Override
 			 public void onClick(View v) {
@@ -5141,5 +5208,654 @@ public void DayEndWithoutalert()
 
 	}
 
+	private class ImageSync extends AsyncTask<Void,Void,Boolean>
+	{
+		// ProgressDialog pDialogGetStores;
+		public ImageSync(StoreSelection activity)
+		{
 
+		}
+
+		@Override
+		protected void onPreExecute()
+		{
+			super.onPreExecute();
+
+			showProgress(getResources().getString(R.string.SubmittingPndngDataMsg));
+
+		}
+		@Override
+		protected Boolean doInBackground(Void... args)
+		{
+			boolean isErrorExist=false;
+
+
+			try
+			{
+				ArrayList<String> listTableToUploadImg=new ArrayList<String>();
+				listTableToUploadImg.add("tableImage");
+				listTableToUploadImg.add("tblStoreProductPhotoDetail");
+				listTableToUploadImg.add("tblStoreClosedPhotoDetail");
+				int imgUpldedSccsfly=0;
+				//dbEngine.upDateCancelTask("0");
+				for(int index=0;index<listTableToUploadImg.size();index++)
+				{
+					ArrayList<String> listImageDetails=new ArrayList<String>();
+
+						listImageDetails=dbengine.getImageDetails(5,listTableToUploadImg.get(index));
+					imgUpldedSccsfly=0;
+
+
+					if(listImageDetails!=null && listImageDetails.size()>0)
+					{
+						for(String imageDetail:listImageDetails)
+						{
+							imgUpldedSccsfly=0;
+							String tempIdImage=imageDetail.split(Pattern.quote("^"))[0].toString();
+							String imagePath=imageDetail.split(Pattern.quote("^"))[1].toString();
+							String imageName=imageDetail.split(Pattern.quote("^"))[2].toString();
+							String file_dj_path = Environment.getExternalStorageDirectory() + "/"+ CommonInfo.ImagesFolder+"/"+imageName;
+							File fImage = new File(file_dj_path);
+							if (fImage.exists())
+							{
+								imgUpldedSccsfly=uploadImage(imagePath, imageName, tempIdImage,listTableToUploadImg.get(index));
+							}
+
+							if(imgUpldedSccsfly==-1)
+							{
+								break;
+							}
+
+
+						}
+
+
+					}
+					if(imgUpldedSccsfly==-1)
+					{
+						isErrorExist=true;
+						break;
+					}
+				}
+
+
+
+			}
+			catch (Exception e)
+			{
+				isErrorExist=true;
+			}
+
+			finally
+			{
+				Log.i("SvcMgr", "Service Execution Completed...");
+			}
+
+			return isErrorExist;
+		}
+
+		@Override
+		protected void onPostExecute(Boolean resultError)
+		{
+			super.onPostExecute(resultError);
+
+
+			dismissProgress();
+
+			if(resultError)
+			{
+				showAlertSingleButtonError(getString(R.string.ErrorUploadingData));
+			}
+			else
+			{
+				if(dbengine.fnCheckForPendingXMLFilesInTable()==1)
+				{
+					new FullSyncDataNow(StoreSelection.this).execute();
+				}
+			}
+
+
+
+
+
+
+
+		}
+	}
+
+	public int uploadImage(String sourceFileUri,String fileName,String tempIdImage,String tblImageName) throws IOException
+	{
+		int completed=0;
+		BitmapFactory.Options IMGoptions01 = new BitmapFactory.Options();
+		IMGoptions01.inDither=false;
+		IMGoptions01.inPurgeable=true;
+		IMGoptions01.inInputShareable=true;
+		IMGoptions01.inTempStorage = new byte[16*1024];
+
+		//finalBitmap = Bitmap.createScaledBitmap(BitmapFactory.decodeFile(fnameIMG,IMGoptions01), 640, 480, false);
+
+		Bitmap bitmap = BitmapFactory.decodeFile(Uri.parse(sourceFileUri).getPath(),IMGoptions01);
+
+//			/Uri.parse(sourceFileUri).getPath()
+		ByteArrayOutputStream stream = new ByteArrayOutputStream();
+		bitmap.compress(Bitmap.CompressFormat.JPEG, 70, stream); //compress to which format you want.
+
+		//b is the Bitmap
+		//int bytes = bitmap.getWidth()*bitmap.getHeight()*4; //calculate how many bytes our image consists of. Use a different value than 4 if you don't use 32bit images.
+
+		//ByteBuffer buffer = ByteBuffer.allocate(bytes); //Create a new buffer
+		//bitmap.copyPixelsToBuffer(buffer); //Move the byte data to the buffer
+		//byte [] byte_arr = buffer.array();
+
+
+		//     byte [] byte_arr = stream.toByteArray();
+		String image_str = BitMapToString(bitmap);
+		ArrayList<NameValuePair> nameValuePairs = new  ArrayList<NameValuePair>();
+
+		////System.out.println("image_str: "+image_str);
+
+		stream.flush();
+		stream.close();
+		//buffer.clear();
+		//buffer = null;
+		bitmap.recycle();
+		dbengine.open();
+		String routeID=dbengine.GetActiveRouteID();
+		dbengine.close();
+		long syncTIMESTAMP = System.currentTimeMillis();
+		Date datefromat = new Date(syncTIMESTAMP);
+		SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss.SSS",Locale.ENGLISH);
+		String onlyDate=df.format(datefromat);
+		nameValuePairs.add(new BasicNameValuePair("image", image_str));
+		nameValuePairs.add(new BasicNameValuePair("FileName",fileName));
+		nameValuePairs.add(new BasicNameValuePair("comment","NA"));
+		nameValuePairs.add(new BasicNameValuePair("storeID",tempIdImage));
+		nameValuePairs.add(new BasicNameValuePair("date",onlyDate));
+		nameValuePairs.add(new BasicNameValuePair("routeID",routeID));
+
+		/*nameValuePairs.add(new BasicNameValuePair("image",image_str));
+		nameValuePairs.add(new BasicNameValuePair("FileName", fileName));
+		nameValuePairs.add(new BasicNameValuePair("TempID", tempIdImage));*/
+		try
+		{
+
+			HttpParams httpParams = new BasicHttpParams();
+			int some_reasonable_timeout = (int) (30 * DateUtils.SECOND_IN_MILLIS);
+
+			//HttpConnectionParams.setConnectionTimeout(httpParams, some_reasonable_timeout);
+
+			HttpConnectionParams.setSoTimeout(httpParams, some_reasonable_timeout + 2000);
+
+
+			HttpClient httpclient = new DefaultHttpClient(httpParams);
+			HttpPost httppost = new HttpPost(CommonInfo.ImageSyncPath);
+
+
+
+			httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+			HttpResponse response = httpclient.execute(httppost);
+
+			String the_string_response = convertResponseToString(response);
+			if(the_string_response.equals("Abhinav"))
+			{
+				completed=1;
+				dbengine.updateSSttImage(fileName, 4,tblImageName);
+				dbengine.fndeleteSbumittedStoreImagesOfSotre(4,tblImageName);
+				System.out.println("Image Uploaded Done = "+tblImageName);
+				String file_dj_path = Environment.getExternalStorageDirectory() + "/"+ CommonInfo.ImagesFolder+"/"+fileName;
+				File fdelete = new File(file_dj_path);
+				if (fdelete.exists()) {
+					if (fdelete.delete()) {
+
+						callBroadCast();
+					} else {
+
+					}
+				}
+
+			}
+
+		}catch(Exception e)
+		{
+			completed=-1;
+			System.out.println("Image Uploaded Error = "+e.toString());
+			//	IMGsyOK = 1;
+
+		}
+		return completed;
+	}
+	public String BitMapToString(Bitmap bitmap)
+	{
+		int h1=bitmap.getHeight();
+		int w1=bitmap.getWidth();
+
+		if(w1 > 768 || h1 > 1024){
+			bitmap=Bitmap.createScaledBitmap(bitmap,1024,768,true);
+
+		}
+
+		else {
+
+			bitmap=Bitmap.createScaledBitmap(bitmap,w1,h1,true);
+		}
+
+		ByteArrayOutputStream baos=new  ByteArrayOutputStream();
+		bitmap.compress(Bitmap.CompressFormat.JPEG,100, baos);
+		byte [] arr=baos.toByteArray();
+		String result= android.util.Base64.encodeToString(arr, android.util.Base64.DEFAULT);
+		return result;
+	}
+
+	public String convertResponseToString(HttpResponse response) throws IllegalStateException, IOException
+	{
+
+		String res = "";
+		StringBuffer buffer = new StringBuffer();
+		inputStream = response.getEntity().getContent();
+		int contentLength = (int) response.getEntity().getContentLength(); //getting content length…..
+		//System.out.println("contentLength : " + contentLength);
+		//Toast.makeText(MainActivity.this, "contentLength : " + contentLength, Toast.LENGTH_LONG).show();
+		if (contentLength < 0)
+		{
+		}
+		else
+		{
+			byte[] data = new byte[512];
+			int len = 0;
+			try
+			{
+				while (-1 != (len = inputStream.read(data)) )
+				{
+					buffer.append(new String(data, 0, len)); //converting to string and appending  to stringbuffer…..
+				}
+			}
+			catch (IOException e)
+			{
+				e.printStackTrace();
+			}
+			try
+			{
+				inputStream.close(); // closing the stream…..
+			}
+			catch (IOException e)
+			{
+				e.printStackTrace();
+			}
+			res = buffer.toString();     // converting stringbuffer to string…..
+
+			//System.out.println("Result : " + res);
+			//Toast.makeText(MainActivity.this, "Result : " + res, Toast.LENGTH_LONG).show();
+			////System.out.println("Response => " +  EntityUtils.toString(response.getEntity()));
+		}
+		return res;
+	}
+
+	public void callBroadCast() {
+		if (Build.VERSION.SDK_INT >= 14) {
+			Log.e("-->", " >= 14");
+			MediaScannerConnection.scanFile(StoreSelection.this, new String[]{Environment.getExternalStorageDirectory().toString()}, null, new MediaScannerConnection.OnScanCompletedListener() {
+
+				public void onScanCompleted(String path, Uri uri) {
+
+				}
+			});
+		} else {
+			Log.e("-->", " < 14");
+			StoreSelection.this.sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED,
+					Uri.parse("file://" + Environment.getExternalStorageDirectory())));
+		}
+	}
+
+	private class FullSyncDataNow extends AsyncTask<Void, Void, Void>
+	{
+
+
+
+		int responseCode=0;
+		public FullSyncDataNow(StoreSelection activity)
+		{
+
+		}
+
+		@Override
+		protected void onPreExecute()
+		{
+			super.onPreExecute();
+
+			File LTFoodXMLFolder = new File(Environment.getExternalStorageDirectory(), CommonInfo.OrderXMLFolder);
+
+			if (!LTFoodXMLFolder.exists())
+			{
+				LTFoodXMLFolder.mkdirs();
+			}
+
+
+			showProgress(getResources().getString(R.string.SubmittingPndngDataMsg));
+
+		}
+
+		@Override
+
+		protected Void doInBackground(Void... params)
+		{
+
+
+			try
+			{
+
+
+
+				File del = new File(Environment.getExternalStorageDirectory(), CommonInfo.OrderXMLFolder);
+
+				// check number of files in folder
+				String [] AllFilesName= checkNumberOfFiles(del);
+
+
+				if(AllFilesName.length>0)
+				{
+					SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+
+
+					for(int vdo=0;vdo<AllFilesName.length;vdo++)
+					{
+						String fileUri=  AllFilesName[vdo];
+
+
+						//System.out.println("Sunil Again each file Name :" +fileUri);
+
+						if(fileUri.contains(".zip"))
+						{
+							File file = new File(Environment.getExternalStorageDirectory().getPath()+ "/" + CommonInfo.OrderXMLFolder + "/" +fileUri);
+							file.delete();
+						}
+						else
+						{
+							String f1=Environment.getExternalStorageDirectory().getPath()+ "/" + CommonInfo.OrderXMLFolder + "/" +fileUri;
+							// System.out.println("Sunil Again each file full path"+f1);
+							try
+							{
+								responseCode= upLoad2Server(f1,fileUri);
+							}
+							catch (Exception e)
+							{
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}
+						if(responseCode!=200)
+						{
+							break;
+						}
+
+					}
+
+				}
+				else
+				{
+					responseCode=200;
+				}
+
+
+
+
+
+
+
+			} catch (Exception e)
+			{
+
+				e.printStackTrace();
+
+			}
+			return null;
+		}
+
+		@Override
+		protected void onCancelled() {
+
+		}
+
+		@Override
+		protected void onPostExecute(Void result) {
+			super.onPostExecute(result);
+			dismissProgress();
+
+			if(responseCode == 200)
+			{
+
+				showSyncSuccess(getString(R.string.genTermInformation),getString(R.string.DataSucc));
+				dbengine.deleteXmlTable("4");
+				dbengine.open();
+				dbengine.updateRecordsSyncd(4);		// update syncd' records
+				dbengine.close();
+				//dbengine.UpdateStoreVisitWiseTablesAfterSync(4);
+
+
+
+			}
+			else
+			{
+				showAlertSingleButtonError(getString(R.string.ErrorUploadingData));
+			}
+
+
+
+
+		}
+	}
+
+
+	public  int upLoad2Server(String sourceFileUri,String fileUri)
+	{
+
+		fileUri=fileUri.replace(".xml", "");
+
+		String fileName = fileUri;
+		String zipFileName=fileUri;
+
+		String newzipfile = Environment.getExternalStorageDirectory() + "/"+ CommonInfo.OrderXMLFolder+"/" + fileName + ".zip";
+
+		sourceFileUri=newzipfile;
+
+		xmlForWeb[0]=         Environment.getExternalStorageDirectory() + "/"+ CommonInfo.OrderXMLFolder+"/" + fileName + ".xml";
+
+
+		try
+		{
+			zip(xmlForWeb,newzipfile);
+		}
+		catch (Exception e1)
+		{
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			//java.io.FileNotFoundException: /359648069495987.2.21.04.2016.12.44.02: open failed: EROFS (Read-only file system)
+		}
+
+
+		HttpURLConnection conn = null;
+		DataOutputStream dos = null;
+		String lineEnd = "\r\n";
+		String twoHyphens = "--";
+		String boundary = "*****";
+		int bytesRead, bytesAvailable, bufferSize;
+		byte[] buffer;
+		int maxBufferSize = 1 * 1024 * 1024;
+
+
+		File file2send = new File(newzipfile);
+
+		String urlString = CommonInfo.OrderSyncPath.trim()+"?CLIENTFILENAME=" + zipFileName;
+
+		try {
+
+			// open a URL connection to the Servlet
+			FileInputStream fileInputStream = new FileInputStream(file2send);
+			URL url = new URL(urlString);
+
+			// Open a HTTP  connection to  the URL
+			conn = (HttpURLConnection) url.openConnection();
+			conn.setDoInput(true); // Allow Inputs
+			conn.setDoOutput(true); // Allow Outputs
+			conn.setUseCaches(false); // Don't use a Cached Copy
+			conn.setRequestMethod("POST");
+			conn.setRequestProperty("Connection", "Keep-Alive");
+			conn.setRequestProperty("ENCTYPE", "multipart/form-data");
+			conn.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + boundary);
+			conn.setRequestProperty("zipFileName", zipFileName);
+
+			dos = new DataOutputStream(conn.getOutputStream());
+
+			dos.writeBytes(twoHyphens + boundary + lineEnd);
+			dos.writeBytes("Content-Disposition: form-data; name=\"uploaded_file\";filename=\""
+					+ zipFileName + "\"" + lineEnd);
+
+			dos.writeBytes(lineEnd);
+
+			// create a buffer of  maximum size
+			bytesAvailable = fileInputStream.available();
+
+			bufferSize = Math.min(bytesAvailable, maxBufferSize);
+			buffer = new byte[bufferSize];
+
+			// read file and write it into form...
+			bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+
+			while (bytesRead > 0)
+			{
+				dos.write(buffer, 0, bufferSize);
+				bytesAvailable = fileInputStream.available();
+				bufferSize = Math.min(bytesAvailable, maxBufferSize);
+				bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+			}
+
+			// send multipart form data necesssary after file data...
+			dos.writeBytes(lineEnd);
+			dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
+
+			// Responses from the server (code and message)
+			serverResponseCode = conn.getResponseCode();
+			String serverResponseMessage = conn.getResponseMessage();
+
+			//Log.i("uploadFile", "HTTP Response is : " + serverResponseMessage + ": " + serverResponseCode);
+
+			if(serverResponseCode == 200)
+			{
+				syncFLAG = 1;
+
+
+				dbengine.upDateTblXmlFile(fileName);
+				delXML(xmlForWeb[0].toString());
+
+
+			}
+			else
+			{
+				syncFLAG = 0;
+			}
+
+			//close the streams //
+			fileInputStream.close();
+			dos.flush();
+			dos.close();
+
+		} catch (MalformedURLException ex)
+		{
+			ex.printStackTrace();
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+
+
+
+
+		return serverResponseCode;
+
+	}
+
+
+	public static void zip(String[] files, String zipFile) throws IOException
+	{
+		BufferedInputStream origin = null;
+		final int BUFFER_SIZE = 2048;
+
+		ZipOutputStream out = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(zipFile)));
+		try {
+			byte data[] = new byte[BUFFER_SIZE];
+
+			for (int i = 0; i < files.length; i++) {
+				FileInputStream fi = new FileInputStream(files[i]);
+				origin = new BufferedInputStream(fi, BUFFER_SIZE);
+				try {
+					ZipEntry entry = new ZipEntry(files[i].substring(files[i].lastIndexOf("/") + 1));
+					out.putNextEntry(entry);
+					int count;
+					while ((count = origin.read(data, 0, BUFFER_SIZE)) != -1) {
+						out.write(data, 0, count);
+					}
+				}
+				finally {
+					origin.close();
+				}
+			}
+		}
+
+		finally {
+			out.close();
+		}
+	}
+
+	public void delXML(String delPath)
+	{
+		File file = new File(delPath);
+		file.delete();
+		File file1 = new File(delPath.toString().replace(".xml", ".zip"));
+		file1.delete();
+	}
+	public static String[] checkNumberOfFiles(File dir)
+	{
+		int NoOfFiles=0;
+		String [] Totalfiles = null;
+
+		if (dir.isDirectory())
+		{
+			String[] children = dir.list();
+			NoOfFiles=children.length;
+			Totalfiles=new String[children.length];
+
+			for (int i=0; i<children.length; i++)
+			{
+				Totalfiles[i]=children[i];
+			}
+		}
+		return Totalfiles;
+	}
+
+	public void showSyncSuccess(String title,String msg)
+	{
+		AlertDialog.Builder alertDialogSyncOK = new AlertDialog.Builder(StoreSelection.this);
+		alertDialogSyncOK.setTitle(title);
+		alertDialogSyncOK.setCancelable(false);
+		/*alertDialogSyncOK
+				.setMessage("Sync was successful!");*/
+		alertDialogSyncOK.setMessage(msg);
+
+		alertDialogSyncOK.setNeutralButton(getText(R.string.AlertDialogOkButton),new DialogInterface.OnClickListener()
+		{
+			public void onClick(DialogInterface dialog, int which)
+			{
+
+
+
+				dialog.dismiss();
+
+
+			}
+		});
+		alertDialogSyncOK.setIcon(R.drawable.info_ico);
+
+		AlertDialog alert = alertDialogSyncOK.create();
+		alert.show();
+		// alertDialogLowbatt.show();
+	}
 }

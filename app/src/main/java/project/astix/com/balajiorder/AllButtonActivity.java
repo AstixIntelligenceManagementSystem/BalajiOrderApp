@@ -274,6 +274,7 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
         {
            // int checkData= dbengine.checkDSRCheckIntblDistributorMapping();
             int checkStockFilled=dbengine.checkStockFilledByDSR();
+            checkStockFilled=1;
             TextView DistributorCheckTextView=(TextView)findViewById(R.id.DistributorCheckTextView);
             if(checkStockFilled==1)
             {
@@ -1887,6 +1888,7 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
                 {
                    // showAlertSingleButtonInfo(getResources().getString(R.string.DistributorCheckInMsg));
                     int IsDBRStockSubmitted=dbengine.fetchtblIsDBRStockSubmitted();
+                    IsDBRStockSubmitted=1;
                     if(IsDBRStockSubmitted==0)
                     {
                         //int checkData= dbengine.checkDSRCheckIntblDistributorMapping();
@@ -2522,6 +2524,7 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
             super.onPostExecute(result);
 
             dismissProgress();
+            ll_execution.setEnabled(true);
             Intent storeIntent = new Intent(AllButtonActivity.this, InvoiceStoreSelection.class);
             storeIntent.putExtra("imei", imei);
             storeIntent.putExtra("userDate", currSysDate);
@@ -3673,6 +3676,13 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
 					*/}
                         if(mm==28)
                         {
+                            newservice = newservice.getProductListLastVisitStockOrOrderMstr(getApplicationContext(), fDate, imei, rID);
+                            if(newservice.flagExecutedServiceSuccesfully!=1)
+                            {
+                                serviceException=true;
+                                break;
+                            }
+
 				/*	newservice = newservice.GetVisitDetailsOnLastSalesSummary(getApplicationContext(), fDate, imei, rID);
 					if(newservice.flagExecutedServiceSuccesfully!=28)
 					{

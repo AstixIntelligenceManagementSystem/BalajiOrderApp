@@ -8,6 +8,11 @@
     <!--<string name="app_name">Balaji Order Test Release</string>-->
 
     <!-- <string name="app_name">Balaji Order Training</string>-->
+
+    <string name="OrderTypeTelephonic">ટેલિફોનિક</string>
+    <string name="OrderTypeActualVisit">વાસ્તવિક મુલાકાત</string>
+
+
     <string name="txtReport">અહેવાલ</string>
     <string name="genTermInformation">માહિતી</string>
     <string name="AlertDialogOkButton">ઓકે</string>
@@ -132,7 +137,9 @@
     <string name="RetrivingDataMsg">ડેટા પુનઃપ્રાપ્ત</string>
     <string name="SubmittingDataMsg">ડેટા સબમિટ કરી રહ્યું છે ...</string>
     <string name="SubmittingPndngDataMsg">બાકી ડેટા સબમિટ કરી રહ્યું છે…</string>
-
+    <string name="UploadPndngData">બાકી ડેટા અપલોડ કરો</string>
+    <string name="AlertDialogHeaderErrorMsg">ભૂલ</string>
+    <string name="ErrorUploadingData">ડેટા અપલોડ કરતી વખતે ભૂલ</string>
     <!--Incentive Activity starts here-->
     <string name="txtIncentive">પ્રોત્સાહન</string>
     <string name="txtFetchingReports">રિપોર્ટ્સનું આનયન કરવું</string>
@@ -178,7 +185,7 @@
     <string name="txtRefreshingData">ડેટા રીફ્રેશ કરી રહ્યું છે ...</string>
     <string name="genTermAvailableRoute">ઉપલબ્ધ રૂટ</string>
     <string name="txtProductName">ઉત્પાદન નામ</string>
-    <string name="txtQuantity">Quantity</string>
+    <string name="txtQuantity">જથ્થો</string>
     <string name="txtConfirmCancel">રદ કરવાની પુષ્ટિ કરો ..</string>
     <string name="txtYouWant">શું તમે ખરેખર ઇચ્છો છો? </string>
     <string name="txtOrderCancel">ઇન્વૉઇસેસ રદ કરવામાં આવે છે ?</string>
@@ -247,7 +254,8 @@
     <string name="RefreshDataMsg">શું તમે ડેટા રીફ્રેશ કરવા માંગો છો?</string>
     <string name="ChangeRoute">રૂટ બદલો</string>
     <string name="Summary">Summary</string>
-    <string name="TargetVsAchieved">Target Vs Achieved</string>
+    <string name="TargetVsAchieved">લક્ષ્યાંક વિ. પ્રાપ્ત</string>
+    <string name="AccountCensusBtn">એકાઉન્ટ સેન્સસ રીપોર્ટ</string>
     <string name="VersionNo">વર્ઝન નંબર-વી</string>
     <string name="CheckTodayOrder">આજે ઓર્ડર તપાસો</string>
 
@@ -281,11 +289,11 @@
     <string name="UpdateTotal">અપડેટ કુલ</string>
     <string name="OrderDeliveryDetails">ઑર્ડર ડિલિવરી વિગતો</string>
     <string name="CollectAmount">રકમ એકત્રિત કરો</string>
-    <string name="Cancel">Cancel</string>
-    <string name="Save">Save</string>
+    <string name="Cancel">રદ કરો</string>
+    <string name="Save">સાચવો</string>
     <string name="SaveExit">સાચવો &amp; બહાર નીકળો</string>
-    <string name="Submit">Submit</string>
-    <string name="Next">Next</string>
+    <string name="Submit">સબમિટ કરો</string>
+    <string name="Next">આગળ</string>
     <string name="CrBal">સીઆર. બાલ.</string>
 
     <string name="ProductName">ઉત્પાદન નામ</string>
@@ -309,10 +317,12 @@
     <string name="RemoveProdct">શું તમે ખરેખર આ ઉત્પાદનને દૂર કરવા માંગો છો?</string>
     <string name="ConfirmDel">કાઢી નાખોની પુષ્ટિ કરો ...</string>
     <string name="YouclickedonNO">તમે ના પર ક્લિક કર્યું</string>
-
+    <string name="OrderTypeActualVisitHeader">સ્ટોર તપાસો</string>
     <string name="prodOValAfterTax">I.Val ઉમેરો પછી ડિસ્કાઉન્ટ:</string>
-
-
+    <string name="CategoryName">કેટેગરી નામ</string>
+    <string name="OrderDetail">ઓર્ડર વિગતવાર</string>
+    <string name="TodayStock">સ્ટોક આજે</string>
+    <string name="laststock">છેલ્લું સ્ટક એનએ</string>
     <string name="submitConfirmAlert"><small>દુકાન ભરતિયું વિગતો સમન્વિત થશે! \ n શું તમે ઇન્વોઇસ વિગતો સબમિટ કરવા માંગો છો?</small></string>
     <string name="genTermRetrivingLocation">સ્ટોર સ્થાનને ઓળખવા માટે જીપીએસ કોઓર્ડિનેટ્સ ગણના</string>
     <string name="prodlstFreeQtyTotal">મુક્ત જથ્થો કુલ :</string>
@@ -321,7 +331,7 @@
     <string name="WhileSave">જ્યારે અમે તમારો ડેટા સાચવો</string>
     <string name="WhileReview">જ્યારે અમે તમારા ડેટાને સાચવીએ છીએ, ત્યારે ઓર્ડરની સમીક્ષા કરો .</string>
     <string name="SelectActualFreeQty">લાગુ કરવા માટે કૃપા કરીને વાસ્તવિક મુક્ત જથ્થો પસંદ કરો  :</string>
-    <string name="SelectActualValue">Please Select the Actual Value to be applied :</string>
+    <string name="SelectActualValue">લાગુ કરવા માટેનું વાસ્તવિક મૂલ્ય પસંદ કરો:</string>
     <string name="DefaultDiscValue">સ્લેબ માટે ડિફોલ્ટ ડિસ્કાઉન્ટ કિંમત : </string>
     <string name="SelectActualDisc">લાગુ કરવા માટે કૃપા કરીને વાસ્તવિક ડિસ્કાઉન્ટ ટકાવારી પસંદ કરો  :</string>
     <string name="DefaultFreeVal">સ્લેબ માટે ડિફોલ્ટ ફ્રી વેલ્યૂ  : </string>
@@ -329,9 +339,13 @@
     <string name="DefaultDisc">સ્લેબ માટે ડિફોલ્ટ ડિસ્કાઉન્ટ ટકાવારી  : </string>
     <string name="DefaultFreeQty">સ્લેબ માટે ડિફૉલ્ટ મફત જથ્થો   :</string>
 
+    <string name="txtGetStockData">સ્ટોક ડેટા મેળવવો</string>
+    <string name="AlertDialogCancelButton">રદ કરો</string>
     <string name="syncAlertOKMsg"><small>ભરતિયું સબમિશન સફળ હતી</small></string>
 
-
+    <string name="OrderTypeActualVisitNew">વાસ્તવિક મુલાકાત</string>
+    <string name="ConfirmOrderType">ટેલિફોનિક ઓર્ડરની પુષ્ટિ કરો</string>
+    <string name="AlertTelephonic">આ ટેલિફોનિક ઓર્ડર છે અને સ્ટોર મુલાકાતની ગણતરી કરવામાં આવશે નહીં, કૃપા કરી આગળ વધવાની ખાતરી કરો</string>
 
     <string name="StoreStock">દુકાન સ્ટોક</string>
     <string name="AlertExecNoSum">એક્ઝ્યુઝેશન સારાંશ માટે કોઈ ડેટા ઉપલબ્ધ નથી</string>
@@ -441,10 +455,10 @@
     <string name="NoRsltFound">માફ કરશો !! \ n કોઈ પરિણામો મળ્યો નથી</string>
     <string name="StockValue">સ્ટોક મૂલ્ય</string>
 
-    <string name="StockAsOn">ઑન--</string>
+    <string name="StockAsOn">સ્ટોક ઓન </string>
     <string name="StckInCases">સ્ટોક એન્ટ્રી (કેસોમાં)</string>
-
-
+    <string name="genTermNoDataConnection">માહિતી</string>
+    <string name="AlertDialogNoButton">ના</string>
     <string name="PleaseWaitMsg">મહેરબાની કરી રાહ જુવો ...</string>
 
 
@@ -459,7 +473,7 @@
     <string name="DataSucc">ડેટા સફળતાપૂર્વક સબમિટ કરવામાં આવ્યો છે</string>
     <string name="SameLocRestart">સ્થાન સમાન છે, કૃપા કરીને ઑકે બટન ક્લિક કર્યા પછી તમારા ફોનને પુનઃપ્રારંભ કરો.</string>
     <string name="txtDone">થઈ ગયું</string>
-    <string name="txtNext">Next</string>
+    <string name="txtNext">આગળ</string>
     <string name="txtClickPhoto">કૃપા કરીને અન્ય ફોટો પર ક્લિક કરો, આ ફોટો લોડ થવામાં ભારે છે</string>
     <string name="txtExitwithoutSave">સાચવો વગર બહાર નીકળો</string>
     <string name="SaveandExit">સાચવો અને બહાર નીકળો</string>
@@ -637,8 +651,13 @@
 
 
     <!--newly added for store close activity-->
+    <string name="overdueBal">ઓવરડ્યુ બેલેન્સ</string>
+    <string name="outstandingBal">બાકી સિલક</string>
+
+    <string name="AlertDialogYesButton">હા</string>
     <string name="StrClosed">સ્ટોર બંધ</string>
     <string name="StrClosedHeader">સ્ટોર બંધ માહિતી</string>
+    <string name="store_call">સ્ટોર કૉલ</string>
     <string name="StrClosedReason">સ્ટોર બંધ કારણ</string>
     <string name="alertSaveMsg">છોડતા પહેલા ડેટા સાચવો અથવા પૂર્ણ કરવામાં આવેલ ફેરફારો સાચવવામાં આવશે નહીં.</string>
     <string name="alertAskSaveMsg">શું તમે ડેટા સાચવવા માંગો છો?</string>
@@ -663,4 +682,22 @@
     <string name="strDataLostIfNotSubmitted">ભરાયેલા ડેટા ખોવાઈ જશે જો સબમિટ નહીં?</string>
     <string name="prodlstPurchaseAmtBeforeTax">કરવેરા પહેલાં:</string>
 
+    <!--Collection Page-->
+    <string name="PaymentCollection">ચુકવણી સંગ્રહ</string>
+    <string name="PrvAmtOutStnding">ઉત્કૃષ્ટ અગાઉની રકમ: </string>
+    <string name="RefNochequeNoTrnNo">RefNo/chequeNo/TrnNo</string>
+    <string name="crntInvoice">વર્તમાન ઇન્વૉઇસ: </string>
+    <string name="minAmountDue">ન્યૂનતમ રકમ: </string>
+    <string name="TtlAmtOutStnding">કુલ ઉત્કૃષ્ટ: </string>
+    <string name="Amount">રકમ</string>
+    <string name="txtDate">તારીખ</string>
+    <string name="Bank">બેન્ક</string>
+    <string name="TotalAmount">કુલ રકમ:-</string>
+    <string name="DoneAndExit">પૂર્ણ થયું &amp; બહાર નીકળો</string>
+    <string name="BackButConfirm">શું તમે પાછા જવા પહેલાં તમારો ડેટા સાચવ્યો છે?</string>
+
+   <!-- Notification Page-->
+    <string name="txtLatestNotification">છેલ્લી 10 સૂચન</string>
+    <string name="txtMessage">સંદેશ</string>
+    <string name="txtBack">પાછળ</string>
 </resources>

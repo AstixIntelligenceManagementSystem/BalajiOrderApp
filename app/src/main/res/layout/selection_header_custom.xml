@@ -51,6 +51,16 @@
          android:drawableRight="@drawable/ic_right2"
            android:textSize="14sp"/>
 
+    <Button android:id="@+id/butn_UpldPndngDta"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/alert_text_background"
+        android:textColor="#000000"
+        android:text="@string/UploadPndngData"
+        android:gravity="left|center_vertical"
+        android:drawableRight="@drawable/ic_right2"
+        android:textSize="14sp"/>
+
       <Button
      android:id="@+id/changeRoute"
       android:layout_width="220dp"
@@ -94,6 +104,7 @@
         android:textColor="#000000"
         android:gravity="left|center_vertical"
         android:drawableRight="@drawable/ic_right2"
+        android:visibility="gone"
         android:textSize="14sp"
         android:text="@string/TargetVsAchieved" />
 
@@ -105,6 +116,7 @@
         android:text="@string/AccountCensusBtn"
         android:drawableRight="@drawable/ic_right2"
         android:gravity="left|center_vertical"
+        android:visibility="gone"
         android:textSize="14sp"/>
 
 
@@ -119,16 +131,7 @@
            android:textSize="14sp"
            android:visibility="gone"
         android:text="View New Added Store" />
-      <Button
-        android:id="@+id/btnVersion"
-       android:layout_width="220dp"
-     android:layout_height="wrap_content"
-       android:background="@drawable/alert_text_background"
-         android:textColor="#000000"
-        android:gravity="left|center_vertical"
-         android:drawableRight="@drawable/ic_right2"
-           android:textSize="14sp"
-        android:text="" />
+
       
        <Button
         android:id="@+id/btnCheckTodayOrder"
@@ -151,7 +154,16 @@
         android:drawableRight="@drawable/ic_right2"
         android:textSize="14sp"
         android:text="@string/ChangeLanguage" />
-    
+    <Button
+        android:id="@+id/btnVersion"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/alert_text_background"
+        android:textColor="#000000"
+        android:gravity="left|center_vertical"
+        android:drawableRight="@drawable/ic_right2"
+        android:textSize="14sp"
+        android:text="" />
 
 </LinearLayout>
 </ScrollView>

@@ -31,9 +31,9 @@
     <string name="submittingDayStart">Submitting Day Start Details...</string>
 
     <string name="overdueBal">OverDue Balance</string>
-
-    <string name="strDataLostIfNotSubmitted">The Filled data will be lost if not submitted?</string>
     <string name="outstandingBal">Outstanding Balance</string>
+    <string name="strDataLostIfNotSubmitted">The Filled data will be lost if not submitted?</string>
+
 
 <!--Alert Box message-->
     <string name="AlertDialogHeaderMsg">Alert</string>
@@ -45,7 +45,7 @@
     <string name="genTermInformation">Information</string>
     <string name="genTermNoDataConnectionFullMsg">Your device has no Data Connection. \n Please ensure Internet is accessible to Continue.</string>
 
-
+    <string name="SubmittingPndngDataMsg">Uploading pending data ...</string>
  <string name="BackButConfirm">Have you saved your data before going back?</string>
 
 
@@ -185,6 +185,8 @@
     <string name="txtError">Error.....</string>
     <string name="txtErrorRetrievingData">Error while Retrieving Data!\nPlease Retry</string>
     <string name="txtErr">Error</string>
+    <string name="ErrorUploadingData">Error while uploading Data</string>
+
     <string name="txtSelectReason">Please select the reason first.</string>
     <string name="txtEnterReason">Please enter the reason.</string>
     <string name="txtInvoicePending">There is no Invoice Pending</string>
@@ -688,6 +690,7 @@
     <string name="DayEnd">Day End</string>
     <string name="Dsrmessage">Please update your personal details before doing day end activity</string>
     <string name="RefreshData">Refresh Data</string>
+    <string name="UploadPndngData">Upload Pending Data</string>
     <string name="RefreshDataMsg">Are you sure to refresh Data?</string>
     <string name="ChangeRoute">Change Route</string>
     <string name="Summary">Summary</string>
@@ -842,7 +845,9 @@
 
       <string name="OrderTypeActualVisitHeader">Store Check</string>
     <string name="TodayStock">Stock Today</string>
-    <string name="stockAsOn">Stock On </string>
+    <string name="stockAsOn">Stk On </string>
+
+    <string name="laststock">Last Stk NA</string>
     <string name="store_call">Store Call</string>
     <string name="OrderTypeActualVisitNew">Actual Visit</string>
 

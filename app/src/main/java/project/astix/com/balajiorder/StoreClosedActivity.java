@@ -20,6 +20,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -115,7 +116,7 @@ public class StoreClosedActivity extends BaseActivity implements LocationListene
     public LocationManager locationManager;
     public AppLocationService appLocationService;
     public PowerManager pm;
-    public	 PowerManager.WakeLock wl;
+
     public ProgressDialog pDialog2STANDBY;
     public CoundownClass countDownTimer;
 
@@ -154,7 +155,8 @@ public class StoreClosedActivity extends BaseActivity implements LocationListene
     String fusedData;
     public boolean isGPSEnabled = false;
     public   boolean isNetworkEnabled = false;
-
+    public String newfullFileName;
+    DatabaseAssistant DA = new DatabaseAssistant(this);
     public String fnAccurateProvider="";
     public String fnLati="0";
     public String fnLongi="0";
@@ -389,12 +391,9 @@ public class StoreClosedActivity extends BaseActivity implements LocationListene
                             System.out.println("SAVING..."+storeID+"-"+clickedDateTime+"-"+photoName+"-"+photoPath);
                         }
 
-                        Intent in = new Intent(StoreClosedActivity.this, StoreSelection.class);
-                        in.putExtra("imei", imei);
-                        in.putExtra("userDate", date);
-                        in.putExtra("pickerDate", pickerDate);
-                        startActivity(in);
-                        finish();
+                        //nitishdubey
+                        new FullSyncDataNow(StoreClosedActivity.this).execute();
+
                     }
                     else
                     {
@@ -422,14 +421,14 @@ public class StoreClosedActivity extends BaseActivity implements LocationListene
 
                         helperDb.upDateCloseStoreReason(storeID,drpdwnSelectedID,drpdwnSelectedValue);
                         System.out.println("SAVING UPDATE..."+storeID+"-"+drpdwnSelectedID+"-"+drpdwnSelectedValue);
-
-                        Intent in = new Intent(StoreClosedActivity.this, StoreSelection.class);
+                        new FullSyncDataNow(StoreClosedActivity.this).execute();
+                       /* Intent in = new Intent(StoreClosedActivity.this, StoreSelection.class);
                         in.putExtra("imei", imei);
                         in.putExtra("userDate", date);
                         in.putExtra("pickerDate", pickerDate);
 
                         startActivity(in);
-                        finish();
+                        finish();*/
                     }
                 }
             }
@@ -555,10 +554,7 @@ public class StoreClosedActivity extends BaseActivity implements LocationListene
         appLocationService = new AppLocationService();
 
         pm = (PowerManager) getSystemService(POWER_SERVICE);
-        wl = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK
-                | PowerManager.ACQUIRE_CAUSES_WAKEUP
-                | PowerManager.ON_AFTER_RELEASE, "INFO");
-        wl.acquire();
+
 
         pDialog2STANDBY = ProgressDialog.show(StoreClosedActivity.this, getText(R.string.genTermPleaseWaitNew), getText(R.string.rtrvng_loc), true);
         pDialog2STANDBY.setIndeterminate(true);
@@ -592,10 +588,7 @@ public class StoreClosedActivity extends BaseActivity implements LocationListene
         {
             GPSONOFFAlert.dismiss();
         }
-        if(wl!=null)
-        {
-            wl.release();
-        }
+
         if(mCamera!=null)
         {
             mCamera.release();
@@ -2103,9 +2096,9 @@ public class StoreClosedActivity extends BaseActivity implements LocationListene
         picAddPosition=picAddPosition-1;
         System.out.println("REMOVE AND PIC ADD DEL..."+removePicPositin+"__"+picAddPosition);
         hmapCtgry_Imageposition.put(tagPhoto,picAddPosition);
-        //	String photoToBeDletedFromPath=dbengine.getPdaPhotoPath(imageNameToDel);
+        //	String photoToBeDletedFromPath=helperDb.getPdaPhotoPath(imageNameToDel);
 
-        // dbengine.updatePhotoValidation("0", imageNameToDel);
+        // helperDb.updatePhotoValidation("0", imageNameToDel);
 
         ArrayList<String> listClkdPic=new ArrayList<String>();
         if(hmapCtgryPhotoSection!=null && hmapCtgryPhotoSection.containsKey(tagPhoto))
@@ -2165,6 +2158,139 @@ public class StoreClosedActivity extends BaseActivity implements LocationListene
             Log.e("-->", " < 14");
             sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED,
                     Uri.parse("file://" + Environment.getExternalStorageDirectory())));
+        }
+    }
+
+    private class FullSyncDataNow extends AsyncTask<Void, Void, Void> {
+
+
+        ProgressDialog pDialogGetStores;
+        public FullSyncDataNow(StoreClosedActivity activity)
+        {
+            pDialogGetStores = new ProgressDialog(activity);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+
+            pDialogGetStores.setTitle(getText(R.string.genTermPleaseWaitNew));
+           // pDialogGetStores.setMessage(StoreClosedActivity.this.getResources().getString(R.string.SubmittingOrderDetails));
+            pDialogGetStores.setIndeterminate(false);
+            pDialogGetStores.setCancelable(false);
+            pDialogGetStores.setCanceledOnTouchOutside(false);
+            pDialogGetStores.show();
+
+
+        }
+
+        @Override
+
+        protected Void doInBackground(Void... params) {
+
+            int Outstat=3;
+           
+
+            long  syncTIMESTAMP = System.currentTimeMillis();
+            Date dateobj = new Date(syncTIMESTAMP);
+            SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss",Locale.ENGLISH);
+            String StampEndsTime = df.format(dateobj);
+
+
+            helperDb.open();
+            helperDb.UpdateStoreEndVisit(storeID, StampEndsTime);
+
+            helperDb.UpdateStoreFlag(storeID.trim(), 3);
+
+
+            //helperDb.UpdateStoreReturnphotoFlag(storeID.trim(), 5);
+
+            helperDb.close();
+
+            helperDb.open();
+            String presentRoute=helperDb.GetActiveRouteID();
+            helperDb.close();
+			
+			
+			/*long syncTIMESTAMP = System.currentTimeMillis();
+			Date dateobj = new Date(syncTIMESTAMP);*/
+            SimpleDateFormat df1 = new SimpleDateFormat("dd.MMM.yyyy.HH.mm.ss",Locale.ENGLISH);
+
+            newfullFileName=imei+"."+presentRoute+"."+ df1.format(dateobj);
+
+
+
+
+            try {
+
+
+                File OrderXMLFolder = new File(Environment.getExternalStorageDirectory(), CommonInfo.OrderXMLFolder);
+
+                if (!OrderXMLFolder.exists())
+                {
+                    OrderXMLFolder.mkdirs();
+
+                }
+                String routeID=helperDb.GetActiveRouteIDSunil();
+
+                DA.open();
+                DA.export(CommonInfo.DATABASE_NAME, newfullFileName,routeID);
+                DA.close();
+
+
+                //helperDb.deleteAllXmlDataTable( "4");
+                helperDb.savetbl_XMLfiles(newfullFileName, "3","1");
+                helperDb.open();
+                helperDb.UpdateStoreFlag(storeID.trim(), 5);
+
+                helperDb.UpdateNewAddedStorephotoFlag(storeID.trim(), 5);
+                helperDb.UpdateStoreClosephotoWithOutFlag(storeID.trim(), 5);
+
+                helperDb.close();
+
+
+
+            } catch (Exception e) {
+
+                e.printStackTrace();
+                if(pDialogGetStores.isShowing())
+                {
+                    pDialogGetStores.dismiss();
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onCancelled() {
+
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+            if(pDialogGetStores.isShowing())
+            {
+                pDialogGetStores.dismiss();
+            }
+
+            try
+            {
+
+                Intent in = new Intent(StoreClosedActivity.this, StoreSelection.class);
+                in.putExtra("imei", imei);
+                in.putExtra("userDate", date);
+                in.putExtra("pickerDate", pickerDate);
+                startActivity(in);
+                finish();
+
+            } catch (Exception e) {
+
+                e.printStackTrace();
+            }
+
+
         }
     }
 

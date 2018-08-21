@@ -3335,6 +3335,12 @@ String RouteType="0";
 			dbengine.Delete_tblRouteMasterAndDistributorMstr();
 
 			NodeList tblRouteListMasterNode = doc.getElementsByTagName("tblRouteListMaster");
+			if(tblRouteListMasterNode.getLength()<1)
+			{
+				dbengine.close();
+				setmovie.director = "0";
+				return setmovie;
+			}
 			for (int i = 0; i < tblRouteListMasterNode.getLength(); i++)
 			{
 				String stID = "NA";
@@ -18808,6 +18814,155 @@ String RouteType="0";
 		}
 		catch (Exception e){
 
+		}
+
+	}
+
+	public ServiceWorker getProductListLastVisitStockOrOrderMstr(Context ctx, String dateVAL, String uuid, String rID)
+	{
+		this.context = ctx;
+
+		DBAdapterKenya dbengine = new DBAdapterKenya(context);
+		dbengine.open();
+
+		final String SOAP_ACTION = "http://tempuri.org/fnGetProductListWithStockOrOrderLastVisit";//GetProductListMRNewProductFilterTest";
+		final String METHOD_NAME = "fnGetProductListWithStockOrOrderLastVisit";//GetProductListMRNewProductFilterTest
+		final String NAMESPACE = "http://tempuri.org/";
+		final String URL = UrlForWebService;
+
+		decimalFormat.applyPattern(pattern);
+		SoapObject table = null; // Contains table of dataset that returned
+		// throug SoapObject
+		SoapObject client = null; // Its the client petition to the web service
+		SoapObject tableRow = null; // Contains row of table
+		SoapObject responseBody = null; // Contains XML content of dataset
+
+		//SoapObject param
+		HttpTransportSE transport = null; // That call webservice
+		SoapSerializationEnvelope sse = null;
+
+
+
+		sse = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+		//sse.addMapping(NAMESPACE, "ServiceWorker", this.getClass());
+		// Note if class name isn't "movie" ,you must change
+		sse.dotNet = true; // if WebService written .Net is result=true
+		HttpTransportSE androidHttpTransport = new HttpTransportSE(URL,timeout);
+
+
+		String RouteNodeType="0";
+		try
+		{
+			RouteNodeType=dbengine.FetchRouteType(rID);
+		}
+		catch(Exception e)
+		{
+			System.out.println("error"+e);
+		}
+
+
+
+		ServiceWorker setmovie = new ServiceWorker();
+		try {
+			client = new SoapObject(NAMESPACE, METHOD_NAME);
+
+			//String dateVAL = "00.00.0000";
+
+			//////// System.out.println("soap obj date: "+ dateVAL);
+			client.addProperty("bydate", dateVAL.toString());
+			client.addProperty("IMEINo", uuid.toString());
+			client.addProperty("rID", rID.toString());
+			client.addProperty("RouteType", RouteNodeType);
+			//client.addProperty("SysDate", SysDate.toString());
+			//client.addProperty("AppVersionID", dbengine.AppVersionID.toString());
+			client.addProperty("flgAllRoutesData", CommonInfo.flgAllRoutesData);
+			client.addProperty("CoverageAreaNodeID", 0);
+			client.addProperty("coverageAreaNodeType", 0);
+
+
+			/*client.addProperty("bydate", dateVAL.toString());
+			client.addProperty("IMEINo", uuid.toString());*/
+
+			sse.setOutputSoapObject(client);
+			sse.bodyOut = client;
+			androidHttpTransport.call(SOAP_ACTION, sse);
+			responseBody = (SoapObject)sse.bodyIn;
+			String resultString=androidHttpTransport.responseDump;
+			String name=responseBody.getProperty(0).toString();
+			// This step: get file XML
+			/*responseBody = (SoapObject) sse.getResponse();
+			  String name=responseBody.getProperty(0).toString();*/
+
+			// System.out.println("Kajol 3 :"+name);
+
+			XMLParser xmlParser = new XMLParser();
+			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+			DocumentBuilder db = dbf.newDocumentBuilder();
+			InputSource is = new InputSource();
+			is.setCharacterStream(new StringReader(name));
+			Document doc = db.parse(is);
+
+			dbengine.deletetblProductListLastVisitStockOrOrderMstr();
+
+			NodeList tblLastOutstanding = doc.getElementsByTagName("tblProductListLastVisitStockOrOrderMstr");
+			for (int i = 0; i < tblLastOutstanding.getLength(); i++)
+			{
+
+
+				String StoreID="NA";
+				String PrdID="0";
+
+
+				Element element = (Element) tblLastOutstanding.item(i);
+
+				if(!element.getElementsByTagName("StoreID").equals(null))
+				{
+
+					NodeList StoreIDNode = element.getElementsByTagName("StoreID");
+					Element     line = (Element) StoreIDNode.item(0);
+
+					if(StoreIDNode.getLength()>0)
+					{
+
+						StoreID=xmlParser.getCharacterDataFromElement(line);
+					}
+				}
+
+				if(!element.getElementsByTagName("PrdID").equals(null))
+				{
+
+					NodeList PrdIDNode = element.getElementsByTagName("PrdID");
+					Element     line = (Element) PrdIDNode.item(0);
+
+					if(PrdIDNode.getLength()>0)
+					{
+
+						PrdID=xmlParser.getCharacterDataFromElement(line);
+
+					}
+				}
+
+				dbengine.savetblProductListLastVisitStockOrOrderMstr(StoreID,PrdID);
+			}
+
+
+
+
+			dbengine.close();;
+
+			setmovie.director = "1";
+			flagExecutedServiceSuccesfully=1;
+			// System.out.println("ServiceWorkerNitish getallProduct Inside");
+			return setmovie;
+//return counts;
+		} catch (Exception e) {
+
+			// System.out.println("Aman Exception occur in GetProductListMRNew :"+e.toString());
+			setmovie.director = e.toString();
+			setmovie.movie_name = e.toString();
+			flagExecutedServiceSuccesfully=0;
+			//dbengine.close();;
+			return setmovie;
 		}
 
 	}

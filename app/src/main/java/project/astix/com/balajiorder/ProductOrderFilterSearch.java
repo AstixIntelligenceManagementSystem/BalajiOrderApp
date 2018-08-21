@@ -912,11 +912,11 @@ GoogleApiClient.OnConnectionFailedListener,CategoryCommunicator
 			txt_Lststock= (TextView) findViewById(R.id.txt_Lststock);
 			if(!TextUtils.isEmpty(lastStockDate))
 			{
-				txt_Lststock.setText("Stk On "+lastStockDate);
+				txt_Lststock.setText(getString(R.string.stockAsOn)+lastStockDate);
 			}
 			else
 			{
-				txt_Lststock.setText("Last Stk NA");
+				txt_Lststock.setText(getString(R.string.laststock));
 			}
 			ImageView executionDetails_butn=(ImageView)findViewById(R.id.txt_execution_Details);
 			executionDetails_butn.setOnClickListener(new OnClickListener() {

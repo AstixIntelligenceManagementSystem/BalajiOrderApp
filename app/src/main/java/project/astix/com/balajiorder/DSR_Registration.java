@@ -415,10 +415,14 @@ public class DSR_Registration extends AppCompatActivity implements DatePickerDia
         text_Daystart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i=new Intent(DSR_Registration.this,SalesValueTarget.class);
+
+                Intent intent=new Intent(DSR_Registration.this,DayStartActivity.class);
+                startActivity(intent);
+                finish();
+               /* Intent i=new Intent(DSR_Registration.this,SalesValueTarget.class);
                 i.putExtra("IntentFrom", 0);
                 startActivity(i);
-                finish();
+                finish();*/
 
             }
         });
@@ -856,10 +860,13 @@ public class DSR_Registration extends AppCompatActivity implements DatePickerDia
                 //deleting image from image folder
                 deletingPreviousImage();
 
-                Intent i=new Intent(DSR_Registration.this,SalesValueTarget.class);
+                Intent intent=new Intent(DSR_Registration.this,DayStartActivity.class);
+                startActivity(intent);
+                finish();
+             /*   Intent i=new Intent(DSR_Registration.this,SalesValueTarget.class);
                 i.putExtra("IntentFrom", 0);
                 startActivity(i);
-                finish();
+                finish();*/
 
             }
         });
@@ -1701,6 +1708,8 @@ public class DSR_Registration extends AppCompatActivity implements DatePickerDia
             String SelfieName=   PersonNameAndFlgRegistered.split(Pattern.quote("^"))[4];
             String SelfieNameURL=   PersonNameAndFlgRegistered.split(Pattern.quote("^"))[5];
             String SalesAreaName=   PersonNameAndFlgRegistered.split(Pattern.quote("^"))[6];
+             userNodeIdGlobal=   PersonNameAndFlgRegistered.split(Pattern.quote("^"))[7];
+             userNodetypeGlobal=   PersonNameAndFlgRegistered.split(Pattern.quote("^"))[8];
 
 
 
@@ -2066,10 +2075,13 @@ public class DSR_Registration extends AppCompatActivity implements DatePickerDia
        }
        else
        {
-           Intent i=new Intent(DSR_Registration.this,SalesValueTarget.class);
+           Intent intent=new Intent(DSR_Registration.this,DayStartActivity.class);
+           startActivity(intent);
+           finish();
+         /*  Intent i=new Intent(DSR_Registration.this,SalesValueTarget.class);
            i.putExtra("IntentFrom", 0);
            startActivity(i);
-           finish();
+           finish();*/
        }
 
    }
@@ -2159,6 +2171,8 @@ public class DSR_Registration extends AppCompatActivity implements DatePickerDia
                     LL_banner_image.setVisibility(View.GONE);
                     Submit_btn.setVisibility(View.VISIBLE);
                     BtnCancel.setVisibility(View.VISIBLE);
+                    userNodeIdGlobal="0";
+                    userNodetypeGlobal="0";
 
                 }
                 if(flag.equals("1"))
@@ -2173,10 +2187,13 @@ public class DSR_Registration extends AppCompatActivity implements DatePickerDia
                         public void onClick(DialogInterface dialog, int which)
                         {
                             dialog.dismiss();
-                            Intent i=new Intent(DSR_Registration.this,SalesValueTarget.class);
+                            Intent intent=new Intent(DSR_Registration.this,DayStartActivity.class);
+                            startActivity(intent);
+                            finish();
+                          /*  Intent i=new Intent(DSR_Registration.this,SalesValueTarget.class);
                             i.putExtra("IntentFrom", 0);
                             startActivity(i);
-                            finish();
+                            finish();*/
 
                         }
                     });
