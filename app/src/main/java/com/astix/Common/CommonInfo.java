@@ -5,7 +5,7 @@ import java.io.File;
 
 public class CommonInfo {
 
-	/*public static String ActiveRouteSM = "0";
+	public static String ActiveRouteSM = "0";
 	public static int AnyVisit = 0;
 	public static String AppLatLngJsonFile = "BalajiOrderSFALatLngJson";
 
@@ -14,8 +14,8 @@ public class CommonInfo {
 	public static int CoverageAreaNodeID = 0;
 	public static int CoverageAreaNodeType = 0;
 	public static String DATABASE_NAME = "DbBalajiOrderSFAApp";
-	public static int DATABASE_VERSIONID = 16;
-	public static String AppVersionID = "1.5";
+	public static int DATABASE_VERSIONID = 24;
+	public static String AppVersionID = "1.8";
 	public static int DayStartClick = 0;
 	public static int DistanceRange = 3000;
 	public static final String DistributorCheckInXMLFolder = "BalajiOrderDistributorCheckInXML";
@@ -42,8 +42,8 @@ public class CommonInfo {
 	public static String VersionDownloadAPKName = "BalajiOrder.apk";
 	public static String VersionDownloadPath = "http://103.20.212.194/downloads/";
 	public static String WebServicePath = "http://103.20.212.194/WebServiceAndroidBalajiLive/Service.asmx";
-	public static String WebStockInUrl = "http://103.20.212.194/BalajisfaLive/manageorder/frmstockin.aspx";
-	public static String WebStockOutUrl = "http://103.20.212.194/BalajisfaLive/manageorder/frmStockTransferToVanDetail_PDA.aspx";
+	public static String WebStockInUrl = "http://103.20.212.194/Balaji/manageorder/frmstockin.aspx";
+	public static String WebStockOutUrl = "http://103.20.212.194/Balaji/manageorder/frmStockTransferToVanDetail_PDA.aspx";
 	public static String clickedTagPhoto_savedInstance = null;
 	public static String fileContent = "";
 	public static int flgAllRoutesData = 1;
@@ -59,11 +59,11 @@ public class CommonInfo {
 	public static String sPrefVanLoadedUnloaded = "VanLoadedUnloaded";
 	public static Uri uriSavedImage_savedInstance = null;
 
-*/
+
 
 	//Dev
 
-	public static String ActiveRouteSM = "0";
+	/*public static String ActiveRouteSM = "0";
 	public static int AnyVisit = 0;
 	public static String AppLatLngJsonFile = "BalajiOrderSFALatLngJson";
 
@@ -100,8 +100,8 @@ public class CommonInfo {
 	public static String VersionDownloadAPKName = "BalajiOrder_Dev.apk";
 	public static String VersionDownloadPath = "http://103.20.212.194/downloads/";
 	public static String WebServicePath = "http://103.20.212.194/WebServiceAndroidBalajiDevelopment/Service.asmx";
-	public static String WebStockInUrl = "http://103.20.212.194/Balajisfadev/manageorder/frmstockin.aspx";
-	public static String WebStockOutUrl = "http://103.20.212.194/Balajisfadev/manageorder/frmStockTransferToVanDetail_PDA.aspx";
+	public static String WebStockInUrl = "http://103.20.212.194/Balajidev/manageorder/frmstockin.aspx";
+	public static String WebStockOutUrl = "http://103.20.212.194/Balajidev/manageorder/frmStockTransferToVanDetail_PDA.aspx";
 	public static String clickedTagPhoto_savedInstance = null;
 	public static String fileContent = "";
 	public static int flgAllRoutesData = 1;
@@ -115,5 +115,5 @@ public class CommonInfo {
 	public static String prcID = "NULL";
 	public static String quatationFlag = "";
 	public static String sPrefVanLoadedUnloaded = "VanLoadedUnloaded";
-	public static Uri uriSavedImage_savedInstance = null;
+	public static Uri uriSavedImage_savedInstance = null;*/
 }

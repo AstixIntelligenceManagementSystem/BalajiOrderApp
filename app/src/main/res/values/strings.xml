@@ -1,9 +1,9 @@
 <resources>
 
- <!--<string name="app_name">Balaji Order</string>-->
+<string name="app_name">Balaji Order</string>
    <!-- <string name="app_name">Balaji Order Stagging</string>-->
  <!-- <string name="app_name">RSPL SFA Test</string>-->
-    <string name="app_name">Balaji Order Dev</string>
+  <!--  <string name="app_name">Balaji Order Dev</string>-->
   <!--<string name="app_name">Balaji Order Test Release</string>-->
 
   <!-- <string name="app_name">Balaji Order Training</string>-->
