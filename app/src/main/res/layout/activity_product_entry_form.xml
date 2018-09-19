@@ -58,7 +58,7 @@
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/txt_execution_Details"
             android:src="@drawable/return_order"
-            android:visibility="visible"/>
+            android:visibility="gone"/>
 
     </RelativeLayout>
     <RelativeLayout
@@ -201,10 +201,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:visibility="gone"
             android:text="@string/TodayStock"
             android:gravity="center"
             android:textSize="10sp"
+            android:visibility="gone"
             android:textStyle="bold"
             android:textColor="#201359"/>
         <TextView
@@ -213,8 +213,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/stockAsOn"
-            android:visibility="gone"
             android:gravity="center"
+            android:visibility="gone"
             android:textSize="10sp"
             android:textStyle="bold"
             android:textColor="#201359"/>
@@ -346,23 +346,17 @@
         android:layout_above="@+id/ll_buttonsNew"
         android:weightSum="1">
 
-        <ScrollView
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_prdct_detal"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="1dp"
             android:layout_weight="0.95"
-            android:clipToPadding="false"
-            android:scrollbarStyle="outsideOverlay"
-            >
 
-            <LinearLayout
-                android:id="@+id/ll_prdct_detal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
 
-            </LinearLayout>
-        </ScrollView>
+            android:scrollbars="vertical" />
+
+
 
         <View
             android:layout_width="match_parent"

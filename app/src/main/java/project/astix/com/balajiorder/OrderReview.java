@@ -10199,7 +10199,7 @@ GoogleApiClient.OnConnectionFailedListener,InterfaceClass{
 		     else if(isReturnClkd==2)
 		     {
 		    	 //Intent fireBackDetPg=new Intent(ProductOrderSearch.this,POSMaterialActivity.class);
-		    	Intent fireBackDetPg=new Intent(OrderReview.this,ProductOrderFilterSearch.class);
+		    	Intent fireBackDetPg=new Intent(OrderReview.this,ProductEntryForm.class);
 			    fireBackDetPg.putExtra("storeID", storeID);
 			    fireBackDetPg.putExtra("SN", SN);
 			    fireBackDetPg.putExtra("bck", 1);

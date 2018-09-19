@@ -5,7 +5,7 @@ import java.io.File;
 
 public class CommonInfo {
 
-	public static String ActiveRouteSM = "0";
+	/*public static String ActiveRouteSM = "0";
 	public static int AnyVisit = 0;
 	public static String AppLatLngJsonFile = "BalajiOrderSFALatLngJson";
 
@@ -59,11 +59,11 @@ public class CommonInfo {
 	public static String sPrefVanLoadedUnloaded = "VanLoadedUnloaded";
 	public static Uri uriSavedImage_savedInstance = null;
 
-
+*/
 
 	//Dev
 
-	/*public static String ActiveRouteSM = "0";
+	public static String ActiveRouteSM = "0";
 	public static int AnyVisit = 0;
 	public static String AppLatLngJsonFile = "BalajiOrderSFALatLngJson";
 
@@ -72,8 +72,8 @@ public class CommonInfo {
 	public static int CoverageAreaNodeID = 0;
 	public static int CoverageAreaNodeType = 0;
 	public static String DATABASE_NAME = "DbBalajiOrderSFAApp";
-	public static int DATABASE_VERSIONID = 22;
-	public static String AppVersionID = "1.7";
+	public static int DATABASE_VERSIONID = 34;
+	public static String AppVersionID = "1.8";
 	public static int DayStartClick = 0;
 	public static int DistanceRange = 3000;
 	public static final String DistributorCheckInXMLFolder = "BalajiOrderDistributorCheckInXML";
@@ -115,5 +115,5 @@ public class CommonInfo {
 	public static String prcID = "NULL";
 	public static String quatationFlag = "";
 	public static String sPrefVanLoadedUnloaded = "VanLoadedUnloaded";
-	public static Uri uriSavedImage_savedInstance = null;*/
+	public static Uri uriSavedImage_savedInstance = null;
 }

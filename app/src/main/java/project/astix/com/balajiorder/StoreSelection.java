@@ -2485,8 +2485,8 @@ public void DayEndWithoutalert()
 										dbengine.UpdateStoreEndVisit(selStoreID,startTS);
 										dbengine.close();
 
-										Intent nxtP4 = new Intent(StoreSelection.this,ProductOrderFilterSearch.class);
-										//Intent nxtP4 = new Intent(LastVisitDetails.this,ProductOrderFilterSearch_RecycleView.class);
+										//Intent nxtP4 = new Intent(StoreSelection.this,ProductOrderFilterSearch.class);
+										Intent nxtP4 = new Intent(StoreSelection.this,ProductEntryForm.class);
 										nxtP4.putExtra("storeID", selStoreID);
 										nxtP4.putExtra("SN", selStoreName);
 										nxtP4.putExtra("imei", imei);
@@ -2574,7 +2574,7 @@ public void DayEndWithoutalert()
 
 											dbengine.UpdateStoreEndVisit(selStoreID,startTS);
 											dbengine.close();
-											Intent ready4GetLoc = new Intent(StoreSelection.this,ProductOrderFilterSearch.class);
+											Intent ready4GetLoc = new Intent(StoreSelection.this,ProductEntryForm.class);
 
 											//enableGPSifNot();
 

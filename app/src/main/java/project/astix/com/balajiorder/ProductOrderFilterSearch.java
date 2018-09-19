@@ -1177,30 +1177,6 @@ GoogleApiClient.OnConnectionFailedListener,CategoryCommunicator
 								}
 							}
 
-					/*if(screenInches>6.5)
-					{
-						tv1.setTextSize(14);
-						tv2.setTextSize(14);
-						tv3.setTextSize(14);
-						tv4.setTextSize(14);
-						tv5.setTextSize(14);
-						tv6.setTextSize(14);
-						tv7.setTextSize(14);
-					}
-					else
-					{
-
-					}*/
-
-
-					/*StringTokenizer tokens = new StringTokenizer(String.valueOf(LastexecutionDetail[current]), "_");
-
-					tv1.setText(tokens.nextToken().trim());
-					tv2.setText(tokens.nextToken().trim());
-					tokens.nextToken().trim();
-					tv3.setText(tokens.nextToken().trim());*/
-					/*tv4.setText(tokens.nextToken().trim());
-					tv5.setText(tokens.nextToken().trim());*/
 							tbl1_dyntable_For_ExecutionDetails.addView(row);
 
 						}

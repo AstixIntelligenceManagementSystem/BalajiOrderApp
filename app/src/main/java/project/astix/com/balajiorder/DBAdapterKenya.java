@@ -32231,5 +32231,30 @@ open();
         db.execSQL("DELETE FROM tblProductListLastVisitStockOrOrderMstr");
 
     }
+
+    public  HashMap<String, String> fnGetProductPurchaseListHmap(String StoreID,String TmpInvoiceCodePDA)
+    {
+        open();
+        //SELECT ProdID,Stock,OrderQty,OrderVal,FreeQty,DisVal,SampleQuantity,ProductPrice From tblStoreProdcutPurchaseDetails where StoreID='"+StoreID+"' and OrderIDPDA='"+pdaOrderID+"' and OrderQty<>0" , null);
+        HashMap<String, String> hmapPrdctOdrQty=new HashMap<String, String>();
+        Cursor cursor = db.rawQuery("SELECT ProdID,OrderQty From tblStoreProdcutPurchaseDetails where StoreID='"+StoreID+"'  AND OrderIDPDA='"+TmpInvoiceCodePDA+"' and OrderQty<>0" , null);
+        try {
+            String CompleteResult[] = new String[cursor.getCount()];
+            if (cursor.getCount() > 0) {
+                if (cursor.moveToFirst()) {
+                    for (int i = 0; i <= (cursor.getCount() - 1); i++) {
+                        hmapPrdctOdrQty.put( cursor.getString(0),cursor.getString(1)) ;
+                        cursor.moveToNext();
+                    }
+                }
+            }
+            return hmapPrdctOdrQty;
+
+        } finally {
+            cursor.close();
+             close();
+        }
+    }
+
 }
 

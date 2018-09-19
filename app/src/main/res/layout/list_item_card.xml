@@ -2,7 +2,7 @@
 <LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 
-
+	android:id="@+id/ll_PrdctPage"
 	android:orientation="vertical"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
@@ -29,7 +29,7 @@
 				android:orientation="horizontal"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:weightSum="6.5"
+				android:weightSum="4.5"
 				android:gravity="center"
 				>
 
@@ -42,7 +42,7 @@
 
 					android:textColor="#000000"
 					android:textSize="12sp"
-					android:layout_weight="3.2"/>
+					android:layout_weight="1.5"/>
 
 				<ImageView
 					android:id="@+id/btnExcptn"
@@ -50,7 +50,7 @@
 					android:layout_height="match_parent"
 
 					android:src="@drawable/exception_alert_sighn"
-					android:visibility="invisible"
+					android:visibility="gone"
 					android:layout_weight=".3"/>
 				<EditText
 					android:id="@+id/et_ProductMDQ"
@@ -74,7 +74,7 @@
 					android:layout_height="wrap_content"
 					android:singleLine="true"
 					android:gravity="center"
-					android:layout_marginLeft="8dp"
+					android:layout_marginLeft="2dp"
 					android:enabled="false"
 					android:padding="1dp"
 					android:textSize="12sp"
@@ -147,7 +147,7 @@
 				android:orientation="horizontal"
 				android:layout_marginTop="1dp"
 
-				android:weightSum="6.5">
+				android:weightSum="4.5">
 
 				<EditText
 					android:id="@+id/et_Stock"
@@ -162,6 +162,7 @@
 					android:inputType="number"
 					android:maxLength="4"
 					android:padding="1dp"
+					android:visibility="gone"
 					android:singleLine="true"
 					android:textColor="#000000"
 					android:textSize="12sp" />
@@ -178,6 +179,7 @@
 					android:enabled="false"
 					android:maxLength="4"
 					android:inputType="number"
+					android:visibility="gone"
 					android:textColor="#000000"
 					android:layout_marginLeft="2dp"
 					android:background="@drawable/edit_text_diable_bg_transprent"
@@ -203,7 +205,7 @@
 					android:id="@+id/et_OrderQty"
 					android:layout_width="0dp"
 					android:layout_height="wrap_content"
-					android:layout_marginLeft="2dp"
+
 					android:padding="1dp"
 					android:singleLine="true"
 					android:gravity="center"

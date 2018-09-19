@@ -1,50 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="project.astix.com.balajiorder">
+    package="project.astix.com.balajiorder">
 
-    <uses-sdk android:minSdkVersion="14"/>
+    <uses-sdk android:minSdkVersion="14" />
 
     <!-- GCM Permissions - End here -->
-    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <permission
         android:name="project.astix.com.balajiorder.permission.MAPS_RECEIVE"
-        android:protectionLevel="signature"/>
+        android:protectionLevel="signature" />
 
     <!-- Permission to access data from network provider -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <!-- Permission for receiveing GCM message -->
-    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <!-- Permission to get the Gmail account(This is required only if you are developing application for lower than android version 4.0) -->
-    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
-    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION"/>
-    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-    <uses-permission android:name="android.permission.EXPAND_STATUS_BAR"/>
-    <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS"/>
-    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
-    <uses-permission android:name="android.permission.RECORD_VIDEO"/>
-    <uses-permission android:name="android.permission.CLEAR_APP_CACHE"></uses-permission>
-        <uses-feature android:name="android.hardware.camera" />
-        <uses-feature android:name="android.hardware.camera.autofocus" />
-        <uses-feature android:name="android.hardware.camera.front" android:required="false" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.EXPAND_STATUS_BAR" />
+    <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.RECORD_VIDEO" />
+    <uses-permission android:name="android.permission.CLEAR_APP_CACHE" />
 
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"></uses-permission>
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-feature
+        android:name="android.hardware.camera.front"
+        android:required="false" />
+
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:allowBackup="true"
@@ -54,15 +57,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/StorelistTheme">
-
-
         <receiver
+            android:name=".BroadcastReceiverOnBootComplete"
             android:enabled="true"
             android:exported="true"
-
-            android:name="project.astix.com.balajiorder.BroadcastReceiverOnBootComplete"
             android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
-
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
 
@@ -70,64 +69,54 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name="project.astix.com.balajiorder.SplashScreen">
+        <activity android:name=".SplashScreen">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="project.astix.com.balajiorder.DayStartActivity"  />
-
-        <activity android:name="project.astix.com.balajiorder.AllButtonActivity" />
-        <activity android:name="project.astix.com.balajiorder.StoreSelection" />
-        <activity android:name="project.astix.com.balajiorder.LastVisitDetails" />
-        <activity android:name="project.astix.com.balajiorder.LastVisitDetailsSecondPart" />
-
-        <activity android:name="project.astix.com.balajiorder.ProductOrderFilterSearch"
-                  android:windowSoftInputMode="adjustPan" />
-        <activity android:name="project.astix.com.balajiorder.OrderReview"
-                  android:windowSoftInputMode="adjustNothing" />
-        <activity android:name="project.astix.com.balajiorder.ReturnActivity"
-                  android:windowSoftInputMode="adjustPan" />
-
-
-        <activity android:name="project.astix.com.balajiorder.SKUWiseSummaryReport_ByTab"
-                  android:theme="@style/MyThemeTabWithdarktext" />
-        <activity android:name="project.astix.com.balajiorder.SKUWiseSummaryReportMTD"
-                  android:theme="@android:style/Theme.Light.NoTitleBar" />
-
-        <activity android:name="project.astix.com.balajiorder.StoreAndSKUWiseSummaryReport_ByTab"
-                  android:theme="@style/MyThemeTabWithdarktext" />
-        <activity android:name="project.astix.com.balajiorder.StoreAndSKUWiseSummaryReportMTD"
-                  android:theme="@android:style/Theme.Light.NoTitleBar" />
-
-        <activity android:name="project.astix.com.balajiorder.StoreWiseSummaryReport_ByTab"
-                  android:theme="@style/MyThemeTabWithdarktext" />
-
-        <activity android:name="project.astix.com.balajiorder.CheckDatabaseData" />
-        <activity android:name="project.astix.com.balajiorder.TargetVsAchievedActivity"
-                              android:windowSoftInputMode="adjustPan" />
-
-
-
-
-
-        <activity android:name="project.astix.com.balajiorder.DistributorCheckInFirstActivity" />
-        <activity android:name="project.astix.com.balajiorder.DistributorCheckInSecondActivity"/>
-
-        <activity android:name="com.example.gcm.NotificationActivity" />
-
-
+        <activity android:name=".DayStartActivity" />
+        <activity android:name=".AllButtonActivity" />
+        <activity android:name=".StoreSelection" />
+        <activity android:name=".LastVisitDetails" />
+        <activity android:name=".LastVisitDetailsSecondPart" />
         <activity
-            android:name="project.astix.com.balajiorder.LauncherActivity"
+            android:name=".ProductOrderFilterSearch"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".OrderReview"
+            android:windowSoftInputMode="adjustNothing" />
+        <activity
+            android:name=".ReturnActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".SKUWiseSummaryReport_ByTab"
+            android:theme="@style/MyThemeTabWithdarktext" />
+        <activity
+            android:name=".SKUWiseSummaryReportMTD"
+            android:theme="@android:style/Theme.Light.NoTitleBar" />
+        <activity
+            android:name=".StoreAndSKUWiseSummaryReport_ByTab"
+            android:theme="@style/MyThemeTabWithdarktext" />
+        <activity
+            android:name=".StoreAndSKUWiseSummaryReportMTD"
+            android:theme="@android:style/Theme.Light.NoTitleBar" />
+        <activity
+            android:name=".StoreWiseSummaryReport_ByTab"
+            android:theme="@style/MyThemeTabWithdarktext" />
+        <activity android:name=".CheckDatabaseData" />
+        <activity
+            android:name=".TargetVsAchievedActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".DistributorCheckInFirstActivity" />
+        <activity android:name=".DistributorCheckInSecondActivity" />
+        <activity android:name="com.example.gcm.NotificationActivity" />
+        <activity
+            android:name=".LauncherActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
-            android:screenOrientation="portrait">
-        </activity>
-
-
-
+            android:screenOrientation="portrait"></activity>
 
         <!--
         <activity
@@ -148,35 +137,26 @@
         </activity>
         -->
 
-
-
         <activity
-            android:name="project.astix.com.balajiorder.ProductOrderFilterSearch_RecycleView"
+            android:name=".ProductOrderFilterSearch_RecycleView"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan">
-        </activity>
+            android:windowSoftInputMode="adjustPan"></activity>
         <activity
-            android:name="project.astix.com.balajiorder.DistributorEntryActivity"
+            android:name=".DistributorEntryActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan">
-        </activity>
-
-
-
+            android:windowSoftInputMode="adjustPan"></activity>
         <activity
-            android:name="project.astix.com.balajiorder.SyncMaster"
+            android:name=".SyncMaster"
             android:configChanges="orientation|keyboardHidden"
             android:excludeFromRecents="true"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
-            android:name="project.astix.com.balajiorder.InvoiceSyncMaster"
+            android:name=".InvoiceSyncMaster"
             android:configChanges="orientation|keyboardHidden"
             android:excludeFromRecents="true"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <!--
         <activity
             android:name=".My_Summary"
@@ -197,24 +177,18 @@
         </activity>
         -->
 
-
         <activity
-            android:name="project.astix.com.balajiorder.StoreWiseSummaryReportMTD"
+            android:name=".StoreWiseSummaryReportMTD"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_activity_stores_summary"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar">
-        </activity>
-
-
-
+            android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
         <activity
-            android:name="project.astix.com.balajiorder.DetailReport_Activity"
+            android:name=".DetailReport_Activity"
             android:configChanges="orientation|keyboardHidden"
             android:excludeFromRecents="true"
             android:label="@string/title_activity_stores_summary"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <!--
         <activity
             android:name=".Add_New_Store"
@@ -252,20 +226,18 @@
         </activity>
         -->
         <activity
-            android:name="project.astix.com.balajiorder.InvoiceStoreSelection"
+            android:name=".InvoiceStoreSelection"
             android:configChanges="orientation|keyboardHidden"
             android:excludeFromRecents="true"
             android:label="@string/title_activity_return"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
-            android:name="project.astix.com.balajiorder.InvoiceProductList"
+            android:name=".InvoiceProductList"
             android:configChanges="orientation|keyboardHidden"
             android:excludeFromRecents="true"
             android:label="@string/title_activity_return"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan">
-        </activity>
+            android:windowSoftInputMode="adjustPan"></activity>
         <!--
         <activity
             android:name=".WebPageActivity"
@@ -328,7 +300,7 @@
 
         <meta-data
             android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version"/>
+            android:value="@integer/google_play_services_version" />
 
         <!-- Home Activity -->
 
@@ -336,24 +308,19 @@
             android:name="com.example.gcm.HomeActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
-            android:noHistory="true">
-        </activity>
-
+            android:noHistory="true"></activity>
         <activity
-            android:name="project.astix.com.balajiorder.Add_New_Store_DynamicSectionWise"
+            android:name=".Add_New_Store_DynamicSectionWise"
             android:configChanges="orientation|keyboardHidden"
             android:excludeFromRecents="true"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar">
-        </activity>
+            android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
         <!-- Register Broadcast receiver -->
-
-
 
         <receiver
             android:name="com.example.gcm.GcmBroadcastReceiver"
-            android:permission="com.google.android.c2dm.permission.SEND" >
+            android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
                 <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
@@ -362,33 +329,26 @@
             </intent-filter>
         </receiver>
 
-
-
         <!-- Register Service -->
-
-
-
 
         <meta-data
             android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version"/>
+            android:value="@integer/google_play_services_version" />
 
         <service
-            android:name="project.astix.com.balajiorder.AppLocationService"
-            android:enabled="true"/>
-        <service android:name="com.example.gcm.GCMNotificationIntentService"/>
+            android:name=".AppLocationService"
+            android:enabled="true" />
+        <service android:name="com.example.gcm.GCMNotificationIntentService" />
 
         <activity
-            android:name="project.astix.com.balajiorder.ViewAddedStore"
-            android:label="@string/title_activity_view_added_store">
-        </activity>
+            android:name=".ViewAddedStore"
+            android:label="@string/title_activity_view_added_store"></activity>
         <activity
-            android:name="project.astix.com.balajiorder.AddNewStore_DynamicSectionWise"
+            android:name=".AddNewStore_DynamicSectionWise"
             android:label="@string/title_activity_view_added_store"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
-            android:name="project.astix.com.balajiorder.QuotationActivity"
+            android:name=".QuotationActivity"
             android:label="@string/title_activity_quotation"
             android:screenOrientation="portrait"
             android:theme="@style/MyThemeTab">
@@ -402,52 +362,44 @@
             -->
         </activity>
         <activity
-            android:name="project.astix.com.balajiorder.Delivery_Details_Activity"
+            android:name=".Delivery_Details_Activity"
             android:screenOrientation="portrait"
-            android:theme="@style/detailActivityTheme">
-        </activity>
+            android:theme="@style/detailActivityTheme"></activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDEhCHZbnXJ6HHzd45tQ3vLuxFHhYUss1I"/>
+            android:value="AIzaSyDEhCHZbnXJ6HHzd45tQ3vLuxFHhYUss1I" />
 
         <service
-            android:name="project.astix.com.balajiorder.GeocodeAddressIntentService"
-            android:exported="false"/>
+            android:name=".GeocodeAddressIntentService"
+            android:exported="false" />
 
-        <activity android:name="project.astix.com.balajiorder.SalesValueTarget">
-        </activity>
-        <activity android:name="project.astix.com.balajiorder.IncentiveActivity">
-        </activity>
-        <activity android:name="project.astix.com.balajiorder.DetailReportSummaryActivity">
-        </activity>
-
-
-
-        <activity android:name="project.astix.com.balajiorder.DistributorMapActivity"
-            android:screenOrientation="portrait"/>
-
-        <activity android:name="project.astix.com.balajiorder.SyncMasterDistributor"
-            android:screenOrientation="portrait"/>
-
-
-
-
-
-        <activity android:name="project.astix.com.balajiorder.DSR_Registration"
+        <activity android:name=".SalesValueTarget"></activity>
+        <activity android:name=".IncentiveActivity"></activity>
+        <activity android:name=".DetailReportSummaryActivity"></activity>
+        <activity
+            android:name=".DistributorMapActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SyncMasterDistributor"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".DSR_Registration"
             android:screenOrientation="portrait"
             android:theme="@style/StorelistTheme">
-           <!-- <intent-filter>
+
+            <!--
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
+            -->
 
         </activity>
-
-        <activity android:name="project.astix.com.balajiorder.StoreClosedActivity"
+        <activity
+            android:name=".StoreClosedActivity"
             android:screenOrientation="portrait" />
-
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -456,20 +408,24 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"/>
+                android:resource="@xml/file_paths" />
         </provider>
-        <activity android:name="project.astix.com.balajiorder.AddedOutletSummaryReportActivity"
-            android:screenOrientation="portrait"/>
 
-        <activity android:name="project.astix.com.balajiorder.DialogDayEndSummaryActivity"
-            android:theme="@style/DayEndDialogTheme"
-            android:screenOrientation="portrait"/>
-        <activity android:name="project.astix.com.balajiorder.CollectionActivityNew"
+        <activity
+            android:name=".AddedOutletSummaryReportActivity"
             android:screenOrientation="portrait" />
-
-        <activity android:name="project.astix.com.balajiorder.ActualVisitStock"
+        <activity
+            android:name=".DialogDayEndSummaryActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/DayEndDialogTheme" />
+        <activity
+            android:name=".CollectionActivityNew"
             android:screenOrientation="portrait" />
-
+        <activity
+            android:name=".ActualVisitStock"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ProductEntryForm"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

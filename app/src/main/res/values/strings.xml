@@ -1,14 +1,12 @@
 <resources>
 
-<string name="app_name">Balaji Order</string>
-   <!-- <string name="app_name">Balaji Order Stagging</string>-->
- <!-- <string name="app_name">RSPL SFA Test</string>-->
-  <!--  <string name="app_name">Balaji Order Dev</string>-->
-  <!--<string name="app_name">Balaji Order Test Release</string>-->
+    <string name="app_name">Balaji Order</string>
+    <!-- <string name="app_name">Balaji Order Stagging</string>-->
+    <!-- <string name="app_name">RSPL SFA Test</string>-->
+    <!--  <string name="app_name">Balaji Order Dev</string>-->
+    <!--<string name="app_name">Balaji Order Test Release</string>-->
 
-  <!-- <string name="app_name">Balaji Order Training</string>-->
-
-
+    <!-- <string name="app_name">Balaji Order Training</string>-->
 
 
     <string name="DSR_Profile">DSR Profile</string>
@@ -35,7 +33,7 @@
     <string name="strDataLostIfNotSubmitted">The Filled data will be lost if not submitted?</string>
 
 
-<!--Alert Box message-->
+    <!--Alert Box message-->
     <string name="AlertDialogHeaderMsg">Alert</string>
     <string name="AlertDialogHeaderErrorMsg">Error</string>
     <string name="AlertDialogOkButton">OK</string>
@@ -46,7 +44,7 @@
     <string name="genTermNoDataConnectionFullMsg">Your device has no Data Connection. \n Please ensure Internet is accessible to Continue.</string>
 
     <string name="SubmittingPndngDataMsg">Uploading pending data ...</string>
- <string name="BackButConfirm">Have you saved your data before going back?</string>
+    <string name="BackButConfirm">Have you saved your data before going back?</string>
 
 
     <!--Distributo Activity starts here-->
@@ -59,19 +57,19 @@
     <string name="CityMessage">City</string>
     <string name="StateMessage">State</string>
 
-   <string name="PleaseSelectDistributor">Please Select Distributor.</string>
-   <string name="PleaseFillAddress">Please Fill Address Value.</string>
-   <string name="PleaseFillProperAddress">Please fill Proper address.</string>
-   <string name="PleaseFillPincode">Please Fill Pincode Value.</string>
-   <string name="PleaseFillPincodeAllDigits">Pin Code value cannot be less than 6 digits.</string>
-   <string name="PleaseFillCity">Please Fill City Value.</string>
-   <string name="PleaseFillState">Please Fill State Value.</string>
-  <!--Distributor Check In First Activity starts here-->
+    <string name="PleaseSelectDistributor">Please Select Distributor.</string>
+    <string name="PleaseFillAddress">Please Fill Address Value.</string>
+    <string name="PleaseFillProperAddress">Please fill Proper address.</string>
+    <string name="PleaseFillPincode">Please Fill Pincode Value.</string>
+    <string name="PleaseFillPincodeAllDigits">Pin Code value cannot be less than 6 digits.</string>
+    <string name="PleaseFillCity">Please Fill City Value.</string>
+    <string name="PleaseFillState">Please Fill State Value.</string>
+    <!--Distributor Check In First Activity starts here-->
 
- <!--All Button  Activity starts here-->
- <string name="DayEndBeforeLogout">Please Day End Before Logging Out.</string>
+    <!--All Button  Activity starts here-->
+    <string name="DayEndBeforeLogout">Please Day End Before Logging Out.</string>
 
- <!--All Button  Activity ends here-->
+    <!--All Button  Activity ends here-->
 
 
     <!--Splash screen starts here-->
@@ -83,7 +81,7 @@
     <string name="regID">Create Registration ID.</string>
     <string name="errorTxt">Error :</string>
     <string name="errorPlayServices">This device does not support Play services, App will not work normally</string>
-     <string name="NewVersionMsg">New Version of this application is available now. \nPlease click on OK to install new Version!</string>
+    <string name="NewVersionMsg">New Version of this application is available now. \nPlease click on OK to install new Version!</string>
     <string name="UpdatingNewVersionMsg">Updating New Version…</string>
     <string name="routeNoAvail">Routes are not Available for this Phone</string>
     <string name="errorFetchData">Unable to fetch  data, please try again.</string>
@@ -156,21 +154,18 @@
     <string name="txtDSRMsg">Please remember to update your personal details today before doing day end activity</string>
 
 
-
-
-
-<!--activity_list.xml inflated in DSR_Registration start here-->
+    <!--activity_list.xml inflated in DSR_Registration start here-->
     <string name="hintSearchproducts">Search products..</string>
-<!--activity_list.xml inflated in DSR_Registration ends here-->
+    <!--activity_list.xml inflated in DSR_Registration ends here-->
 
-<!--activity_main.xml inflated in DSR_Registration start here-->
+    <!--activity_main.xml inflated in DSR_Registration start here-->
     <string name="txtSwitchCamera">Switch Camera</string>
     <string name="txtCapture">Capture</string>
-<!--activity_main.xml inflated in DSR_Registration ends here-->
+    <!--activity_main.xml inflated in DSR_Registration ends here-->
 
     <!--DSR_Registration ends here-->
 
-<!--Launcher Activity starts here-->
+    <!--Launcher Activity starts here-->
     <string name="txtSalesPerformanceMaximizer">Sales Performance Maximizer</string>
     <string name="radioTodayRoute">Today Route : </string>
     <string name="radioChooseDifferentRoute">Choose Different Route</string>
@@ -198,9 +193,7 @@
 
     <string name="ValidatingMsg">Validating User</string>
 
-<!--Launcher Activity ends here-->
-
-
+    <!--Launcher Activity ends here-->
 
 
     <!--Incentive Activity starts here-->
@@ -248,7 +241,7 @@
     <string name="txtRefreshingData">Refreshing Data...</string>
     <string name="genTermAvailableRoute">Available Route</string>
     <string name="txtProductName">Product Name</string>
-   <string name="txtQuantity">Quantity</string>
+    <string name="txtQuantity">Quantity</string>
     <string name="txtConfirmCancel">Confirm Cancel..</string>
     <string name="txtYouWant">Are you sure you want </string>
     <string name="txtOrderCancel">orders are to be cancelled ?</string>
@@ -256,7 +249,6 @@
 
 
     <!--StoreSelection Activity ends here-->
-
 
 
     <!--DetailReportSummaryActivity Activity starts here-->
@@ -273,7 +265,6 @@
     <string name="txtNotification">Notification</string>
 
     <!--DetailReportSummaryActivity Activity ends here-->
-
 
 
     <!--TargetVsAcievedActivity Activity starts here-->
@@ -299,7 +290,7 @@
 
 
     <!--SKUWiseSummaryReportByTab Activity starts here-->
-<!--1st part-->
+    <!--1st part-->
     <string name="prodlstProduct">Product</string>
     <string name="txtStores">Stores</string>
     <string name="txtOrderQty">Order Qty</string>
@@ -315,16 +306,14 @@
     <string name="txtSKUWiseSummary">SKU WIse Summary</string>
 
 
-
-
-<!--2nd part-->
+    <!--2nd part-->
 
     <string name="txtLinesperBill">Lines\nper Bill</string>
     <string name="txtStockValue">Stock\nValue</string>
     <string name="txtTotal">Total :</string>
     <string name="txtNoStoreToDisplay">No Store wise order available to display</string>
 
-<!--3rd part-->
+    <!--3rd part-->
     <string name="txtSKUWISE">SKU WISE</string>
 
     <string name="txtStoreWiseSummary">Store Wise Summary</string>
@@ -336,10 +325,7 @@
     <string name="txtSTORESKUWISE">STORE SKU WISE</string>
 
 
-
-
     <!--SKUWiseSummaryReportByTab Activity ends here-->
-
 
 
     <!-- Day end menu header starts -->
@@ -367,9 +353,7 @@
     <!-- Notification Activity ends -->
 
 
-
-
-<!--surbhi-->
+    <!--surbhi-->
     <!-- Order view Activity -->
 
     <string name="OrderReview">Order Review</string>
@@ -476,13 +460,11 @@
     <!-- Product order filter search Activity ends -->
 
 
-
     <!-- LastVisitDetails Activity start -->
 
     <string name="OrderType">Order Type</string>
     <string name="OrderTypeTelephonic">Telephonic</string>
     <string name="OrderTypeActualVisit">Actual Visit</string>
-
 
 
     <string name="LastVisitDate">Last Visit Date :</string>
@@ -652,7 +634,6 @@
     <string name="SubmittingDistributorDetails">Submitting Distributor Details...</string>
 
 
-
     <!--invoice sync master ends-->
 
 
@@ -699,14 +680,7 @@
     <string name="CheckTodayOrder">Check Today Order</string>
 
 
-
     <!-- Selection header ends -->
-
-
-
-
-
-
 
 
     <string name="genlocaldataMsg">Data saved locally,will send to server once Internet is accessible.</string>
@@ -777,7 +751,6 @@
     <string name="LastOrderDetails">Last Order Details</string>
 
 
-
     <!--new-->
     <!--store selection-->
     <string name="Route_prompt">Change Route</string>
@@ -843,7 +816,7 @@
     <string name="txtNoRoute">Their are no Routes Available for you.</string>
 
 
-      <string name="OrderTypeActualVisitHeader">Store Check</string>
+    <string name="OrderTypeActualVisitHeader">Store Check</string>
     <string name="TodayStock">Stock Today</string>
     <string name="stockAsOn">Stk On </string>
 
